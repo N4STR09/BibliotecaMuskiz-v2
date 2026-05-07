@@ -1,4 +1,4 @@
-package Classes.model;
+package src.Classes.model;
 
 public class Libro {
     private int idLibro;

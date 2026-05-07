@@ -1,13 +1,13 @@
-package Classes.menu;
+package src.Classes.menu;
 
 import java.util.List;
 import java.util.Scanner;
 
-import Classes.model.*;
-import Classes.service.ServiceAutores;
-import Classes.utils.ColoresUtils;
-import Classes.utils.InputUtils;
-import Classes.utils.TitlesUtils;
+import src.Classes.model.*;
+import src.Classes.service.ServiceAutores;
+import src.Classes.utils.ColoresUtils;
+import src.Classes.utils.InputUtils;
+import src.Classes.utils.TitlesUtils;
 
 public class MenuAutores {
     public static void mostrar(Scanner sc, List<Autor> autores, List<Libro> libros) {

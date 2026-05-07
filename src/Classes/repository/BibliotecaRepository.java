@@ -1,8 +1,8 @@
-package Classes.repository;
+package src.Classes.repository;
 
-import Classes.setup.*;
-import Classes.utils.ColoresUtils;
-import Classes.model.*;
+import src.Classes.setup.*;
+import src.Classes.utils.ColoresUtils;
+import src.Classes.model.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import java.io.*;
@@ -12,14 +12,13 @@ import java.util.List;
 
 public class BibliotecaRepository {
 
-    private static final String AUTORES_FILE = "./biblioteca-muskiz/BibliotecaMuskiz/data/autores.json";
-    private static final String LIBROS_FILE  = "./biblioteca-muskiz/BibliotecaMuskiz/data/libros.json";
+    private static final String AUTORES_FILE = "./data/autores.json";
+    private static final String LIBROS_FILE  = "./data/libros.json";
 
     private static final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .create();
-
 
     //autores
     public static void guardarAutores(List<Autor> autores) {

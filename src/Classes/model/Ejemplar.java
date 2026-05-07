@@ -1,4 +1,4 @@
-package Classes.model;
+package src.Classes.model;
 
 public class Ejemplar {
     

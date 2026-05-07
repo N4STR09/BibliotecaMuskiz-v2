@@ -1,10 +1,10 @@
-package Classes.setup;
+package src.Classes.setup;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import Classes.model.Autor;
-import Classes.model.Libro;
+import src.Classes.model.Autor;
+import src.Classes.model.Libro;
 
 public class Inicializaciones {
         public static void inicializar(List<Autor> autores, List<Libro> libros) {

@@ -1,13 +1,13 @@
-package Classes;
+package src.Classes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Classes.menu.MenuPrincipal;
-import Classes.model.Autor;
-import Classes.model.Libro;
-import Classes.repository.BibliotecaRepository;
-import Classes.setup.Inicializaciones;
+import src.Classes.menu.MenuPrincipal;
+import src.Classes.model.Autor;
+import src.Classes.model.Libro;
+import src.Classes.repository.BibliotecaRepository;
+import src.Classes.setup.Inicializaciones;
 
 public class Main {
     public static void main(String[] args) {

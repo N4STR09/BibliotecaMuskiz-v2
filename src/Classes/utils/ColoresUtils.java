@@ -1,4 +1,4 @@
-package Classes.utils;
+package src.Classes.utils;
 
 public class ColoresUtils {
     // Reset
