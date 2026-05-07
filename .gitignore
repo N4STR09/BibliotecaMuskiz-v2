@@ -1,0 +1,24 @@
+# Carpetas generadas
+/bin/
+/out/
+/target/
+
+# Datos persistentes (JSON)
+data/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# Eclipse / IntelliJ (por si acaso)
+.classpath
+.project
+.settings/
+.idea/
+*.iml
