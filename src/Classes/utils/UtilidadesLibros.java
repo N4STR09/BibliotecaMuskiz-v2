@@ -1,165 +1,139 @@
 package src.Classes.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import src.Classes.repository.ConexionBD;
 
-import src.Classes.model.Libro;
+import java.sql.*;
+import java.util.*;
 
 public class UtilidadesLibros {
-    
-    //calculo media de paginas
-    public static double mediaPaginas(List<Libro> libros) {
-        if (libros == null || libros.isEmpty()) {
-            return 0;
-        }
 
-        int totalPaginas = 0;
-        for (Libro libro : libros) {
-            totalPaginas += libro.getNumeroPaginas();
-        }
+    // =========================
+    // 📊 PAGINAS
+    // =========================
 
-        return (double) totalPaginas / libros.size();
+    public static double mediaPaginas() {
+
+        String sql = "SELECT AVG(numeroPaginas) FROM libros";
+
+        return ejecutarDouble(sql);
     }
 
-    //calculo maximo de paginas
-    public static List<Libro> librosMaxPaginas(List<Libro> libros) {
-        List<Libro> max = new ArrayList<>();
-        if (libros == null || libros.isEmpty()) return max;
+    public static int maxPaginas() {
 
-        int maxPaginas = 0;
+        String sql = "SELECT MAX(numeroPaginas) FROM libros";
 
-        for (Libro l : libros) {
-            if (l.getNumeroPaginas() > maxPaginas) {
-                maxPaginas = l.getNumeroPaginas();
+        return ejecutarInt(sql);
+    }
+
+    public static int minPaginas() {
+
+        String sql = "SELECT MIN(numeroPaginas) FROM libros";
+
+        return ejecutarInt(sql);
+    }
+
+    // =========================
+    // 📦 EXISTENCIAS
+    // =========================
+
+    public static double mediaExistencias() {
+
+        String sql = "SELECT AVG(existencias) FROM libros";
+
+        return ejecutarDouble(sql);
+    }
+
+    public static int maxExistencias() {
+
+        String sql = "SELECT MAX(existencias) FROM libros";
+
+        return ejecutarInt(sql);
+    }
+
+    public static int minExistencias() {
+
+        String sql = "SELECT MIN(existencias) FROM libros";
+
+        return ejecutarInt(sql);
+    }
+
+    // =========================
+    // 📊 GENERALES
+    // =========================
+
+    public static double porcentajeDisponibles() {
+
+        String sql = """
+            SELECT (SUM(CASE WHEN disponibilidad = 1 THEN 1 ELSE 0 END) / COUNT(*)) * 100
+            FROM libros
+        """;
+
+        return ejecutarDouble(sql);
+    }
+
+    public static int totalLibros() {
+
+        String sql = "SELECT COUNT(*) FROM libros";
+
+        return ejecutarInt(sql);
+    }
+
+    public static Map<String, Integer> librosPorGenero() {
+
+        Map<String, Integer> map = new HashMap<>();
+
+        String sql = """
+            SELECT genero, COUNT(*) as total
+            FROM libros
+            GROUP BY genero
+        """;
+
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                map.put(rs.getString("genero"), rs.getInt("total"));
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        for (Libro l : libros) {
-            if (l.getNumeroPaginas() == maxPaginas) {
-                max.add(l);
-            }
-        }
-
-        return max;
+        return map;
     }
 
-    //calculo minimo de paginas
-    public static List<Libro> librosMinimoPaginas(List<Libro> libros) {
-    List<Libro> resultado = new ArrayList<>();
-    if (libros == null || libros.isEmpty()) return resultado;
+    // =========================
+    // 🧠 HELPERS
+    // =========================
 
-    int minPaginas = libros.get(0).getNumeroPaginas();
+    private static double ejecutarDouble(String sql) {
 
-    for (Libro l : libros) {
-        if (l.getNumeroPaginas() < minPaginas) {
-            minPaginas = l.getNumeroPaginas();
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) return rs.getDouble(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+        return 0;
     }
 
-    for (Libro l : libros) {
-        if (l.getNumeroPaginas() == minPaginas) {
-            resultado.add(l);
-        }
-    }
+    private static int ejecutarInt(String sql) {
 
-    return resultado;
-}
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
+            if (rs.next()) return rs.getInt(1);
 
-    //calculo media de existencias
-    public static double mediaExistencias(List<Libro> libros) {
-        if (libros == null || libros.isEmpty()) {
-            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        int totalExistencias = 0;
-        for (Libro libro : libros) {
-            totalExistencias += libro.getExistencias();
-        }
-
-        return (double) totalExistencias / libros.size();
-    }
-
-    //calculo maximo de existencias
-    public static List<Libro> librosMaxExistencias(List<Libro> libros) {
-        List<Libro> max = new ArrayList<>();
-        if (libros == null || libros.isEmpty()) return max;
-
-        int maxExistencias = 0;
-
-        for (Libro l : libros) {
-            if (l.getExistencias() > maxExistencias) {
-                maxExistencias = l.getExistencias();
-            }
-        }
-
-        for (Libro l : libros) {
-            if (l.getExistencias() == maxExistencias) {
-                max.add(l);
-            }
-        }
-
-        return max;
-    }
-
-
-    //calculo minimo de existencias
-    public static List<Libro> librosMinExistencias(List<Libro> libros) {
-    List<Libro> resultado = new ArrayList<>();
-    if (libros == null || libros.isEmpty()) return resultado;
-
-    int minExistencias = libros.get(0).getExistencias();
-
-    for (Libro l : libros) {
-        if (l.getExistencias() < minExistencias) {
-            minExistencias = l.getExistencias();
-        }
-    }
-
-    for (Libro l : libros) {
-        if (l.getExistencias() == minExistencias) {
-            resultado.add(l);
-        }
-    }
-
-    return resultado;
-}
-
-
-    //calculo de porcentaje de libros disponibles
-    public static double porcentajeDisponibles(List<Libro> libros) {
-        if (libros == null || libros.isEmpty()) return 0;
-
-        int disponibles = 0;
-        for (Libro libro : libros) {
-            if (libro.isDisponibilidad()) {
-                disponibles++;
-            }
-        }
-
-        double porcentaje = (double) disponibles / libros.size() * 100;
-        return Math.round(porcentaje * 100.0) / 100.0;
-    }
-
-
-    //calculo de cantidad de libros por genero
-    public static Map<String, Integer> librosPorGenero(List<Libro> libros) {
-        Map<String, Integer> conteo = new HashMap<>();
-        if (libros == null || libros.isEmpty()) return conteo;
-
-        for (Libro libro : libros) {
-            String tgenero = libro.getGenero();
-            conteo.put(tgenero, conteo.getOrDefault(tgenero, 0) + 1);
-        }
-
-        return conteo;
-    }
-
-    //calculo de total de libros existentes
-    public static int totalLibros(List<Libro> libros) {
-        if (libros == null) return 0;
-        return libros.size();
+        return 0;
     }
 }

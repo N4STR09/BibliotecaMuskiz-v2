@@ -1,8 +1,6 @@
 package src.Classes.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Autor extends Persona {
@@ -14,9 +12,8 @@ public class Autor extends Persona {
     private String generoLiterario;
     private String premios;
     private String obrasDestacadas;
-    private List<Integer> librosEscritos;
 
-    //constructor
+    // CONSTRUCTOR (SIN listas de libros)
     public Autor(
             int idAutor,
             String nombre,
@@ -38,25 +35,15 @@ public class Autor extends Persona {
         this.generoLiterario = generoLiterario;
         this.premios = premios;
         this.obrasDestacadas = obrasDestacadas;
-        this.librosEscritos = new ArrayList<>();
     }
 
-    //metodos
-    public void addLibro(int idLibro) {
-        librosEscritos.add(idLibro);
-    }
-
-    public int getNumeroLibros() {
-        return librosEscritos.size();
-    }
-
-    public List<Integer> getLibrosEscritos() {
-        return librosEscritos;
-    }
-
-    //getters y setters
+    // GETTERS Y SETTERS
     public int getIdAutor() {
         return idAutor;
+    }
+
+    public void setIdAutor(int idAutor) {
+        this.idAutor = idAutor;
     }
 
     public String getNacionalidad() {
@@ -102,7 +89,6 @@ public class Autor extends Persona {
                 "id=" + idAutor +
                 ", nombre='" + getNombre() + '\'' +
                 ", nacionalidad='" + nacionalidad + '\'' +
-                ", libros=" + getNumeroLibros() +
                 '}';
     }
 }

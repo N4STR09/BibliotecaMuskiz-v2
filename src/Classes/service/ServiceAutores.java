@@ -1,52 +1,61 @@
 package src.Classes.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-import src.Classes.model.*;
+import src.Classes.model.Autor;
+import src.Classes.model.Libro;
+import src.Classes.repository.AutorRepository;
+import src.Classes.repository.LibroRepository;
 import src.Classes.utils.ColoresUtils;
 import src.Classes.utils.InputUtils;
 import src.Classes.utils.TitlesUtils;
 import src.Classes.utils.UtilidadesAutores;
 
-import java.time.LocalDate;
-
 public class ServiceAutores {
-    
-    public static void añadirAutor(Scanner sc, List<Autor> autores, List<Libro> libros) {
-        
+
+    public static void añadirAutor(Scanner sc) {
+
         TitlesUtils.tituloNuevoAutor();
-        //solicitud de datos al usuario
+
         String nombre = InputUtils.leerString(sc, "\nNombre del autor: ");
-
         String nacionalidad = InputUtils.leerString(sc, "Nacionalidad: ");
-
         LocalDate fechaNacimiento = InputUtils.leerFecha(sc, "Fecha de nacimiento: ");
 
-        //vamos a crear un autor que este vivo
-        boolean defuncion = InputUtils.leerBoolean(sc, "¿El autor ha " + ColoresUtils.NEGRITA + "fallecido" + ColoresUtils.RESET + "?: ");
-        
+        boolean defuncion = InputUtils.leerBoolean(
+            sc,
+            "¿El autor ha " + ColoresUtils.NEGRITA + "fallecido" + ColoresUtils.RESET + "?: "
+        );
+
         LocalDate fechaFallecimiento = null;
+
         if (defuncion) {
+
             do {
+
                 fechaFallecimiento = InputUtils.leerFecha(sc, "Fecha de fallecimiento: ");
+
                 if (fechaFallecimiento.isBefore(fechaNacimiento)) {
-                    System.out.println("La fecha de fallecimiento " + ColoresUtils.ROJO + "no puede ser anterior" + ColoresUtils.RESET + " a la fecha de nacimiento.");
+
+                    System.out.println(
+                        ColoresUtils.ROJO +
+                        "La fecha de fallecimiento no puede ser anterior a la de nacimiento." +
+                        ColoresUtils.RESET
+                    );
                 }
+
             } while (fechaFallecimiento.isBefore(fechaNacimiento));
         }
-        
+
         String biografia = InputUtils.leerString(sc, "Biografía: ");
         String foto = InputUtils.leerString(sc, "Foto del autor: ");
         String generoLiterario = InputUtils.leerString(sc, "Género literario: ");
-        String premios = InputUtils.leerString(sc, "Premios obtenidos: ");
+        String premios = InputUtils.leerString(sc, "Premios: ");
         String obrasDestacadas = InputUtils.leerString(sc, "Obras destacadas: ");
 
-        int id = autores.size() + 1; //asignacion de ID automatica
-
-        //creamos un nuevo autor
         Autor nuevoAutor = new Autor(
-            id,
+            0,
             nombre,
             nacionalidad,
             fechaNacimiento,
@@ -59,256 +68,240 @@ public class ServiceAutores {
             obrasDestacadas
         );
 
-        autores.add(nuevoAutor); //lo añadimos a la lista
-        InputUtils.limpiarPantalla();
-        System.out.println(ColoresUtils.VERDE + ColoresUtils.NEGRITA + "Autor añadido correctamente." + ColoresUtils.RESET);
+        AutorRepository.guardarAutor(nuevoAutor);
+
+        System.out.println(
+            ColoresUtils.VERDE +
+            ColoresUtils.NEGRITA +
+            "Autor añadido correctamente." +
+            ColoresUtils.RESET
+        );
+
         InputUtils.pausa(sc);
         InputUtils.limpiarPantalla();
     }
 
-    public static void eliminarAutor(Scanner sc, List<Autor> autores, List<Libro> libros) {
+    public static void eliminarAutor(Scanner sc) {
+
+        List<Autor> autores = AutorRepository.cargarAutores();
+
         if (autores.isEmpty()) {
-            System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "No hay autores para eliminar." + ColoresUtils.RESET);
+
+            System.out.println(
+                ColoresUtils.ROJO +
+                "No hay autores." +
+                ColoresUtils.RESET
+            );
+
             InputUtils.pausa(sc);
             InputUtils.limpiarPantalla();
-        } else {
-            TitlesUtils.tituloEliminarAutor();
-            for (Autor a : autores) {
-                System.out.println(a.getIdAutor() + " - " + a.getNombre());
-            }
-
-            System.out.print("\nIntroduce el" + ColoresUtils.NEGRITA + ColoresUtils.ROJO + " ID " + ColoresUtils.RESET + ColoresUtils.ROJO + "del autor a eliminar: " + ColoresUtils.RESET);
-            int id = sc.nextInt();
-            sc.nextLine(); // limpiar buffer
-
-            boolean eliminado = false;
-
-            for (int i = 0; i < autores.size(); i++) {
-                if (autores.get(i).getIdAutor() == id) {
-                    autores.remove(i);
-                    eliminado = true;
-                    System.out.println(ColoresUtils.VERDE + ColoresUtils.NEGRITA + "\nAutor eliminado correctamente." + ColoresUtils.RESET);
-                    InputUtils.pausa(sc);
-                    InputUtils.limpiarPantalla();
-                    break;
-                }
-            }
-
-            if (!eliminado) {
-                System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "\nNo se encontró ningún autor con ese ID." + ColoresUtils.RESET);
-            }
+            return;
         }
+
+        TitlesUtils.tituloEliminarAutor();
+
+        for (Autor a : autores) {
+            System.out.println(a.getIdAutor() + " - " + a.getNombre());
+        }
+
+        int id = InputUtils.leerInt(sc, "\nID del autor a eliminar: ");
+
+        boolean existe = autores.stream()
+                .anyMatch(a -> a.getIdAutor() == id);
+
+        if (!existe) {
+
+            System.out.println(
+                ColoresUtils.ROJO +
+                "No existe un autor con ese ID." +
+                ColoresUtils.RESET
+            );
+
+        } else {
+
+            AutorRepository.eliminarAutor(id);
+
+            System.out.println(
+                ColoresUtils.VERDE +
+                "Autor eliminado correctamente." +
+                ColoresUtils.RESET
+            );
+        }
+
+        InputUtils.pausa(sc);
+        InputUtils.limpiarPantalla();
     }
 
-    public static void visualizarAutores(Scanner sc, List<Autor> autores, List<Libro> libros) {
+    public static void visualizarAutores(Scanner sc) {
+
+        List<Autor> autores = AutorRepository.cargarAutores();
+
+        if (autores.isEmpty()) {
+
+            System.out.println(
+                ColoresUtils.ROJO +
+                "No hay autores registrados." +
+                ColoresUtils.RESET
+            );
+
+            InputUtils.pausa(sc);
+            InputUtils.limpiarPantalla();
+            return;
+        }
+
         TitlesUtils.tituloAutores();
 
         for (Autor a : autores) {
-            System.out.println(ColoresUtils.ROJO + a.getIdAutor() + ColoresUtils.RESET + " - " + a.getNombre()); //printeamos lo que nos devuelva los getters
+            System.out.println(
+                ColoresUtils.ROJO +
+                a.getIdAutor() +
+                ColoresUtils.RESET +
+                " - " +
+                a.getNombre()
+            );
         }
-        int id = InputUtils.leerInt(sc, "\nIntroduce el " + ColoresUtils.ROJO + "ID" + ColoresUtils.RESET + " del autor para ver detalles " + ColoresUtils.NEGRITA + "(0 para salir): " + ColoresUtils.RESET);
 
-        if (id != 0) {
-            boolean encontrado = false;
+        int id = InputUtils.leerInt(
+            sc,
+            "\nID del autor (0 para salir): "
+        );
 
-            for (Autor a : autores) {
-                if (a.getIdAutor() == id) {
-                    System.out.println(ColoresUtils.NEGRITA + "\n---- DETALLES DEL AUTOR ----" + ColoresUtils.RESET);
-                    System.out.println("ID: " + a.getIdAutor());
-                    System.out.println("Nombre: " + a.getNombre());
-                    System.out.println("Nacionalidad: " + a.getNacionalidad());
-                    System.out.println("Fecha de Nacimiento: " + a.getFechaNacimiento());
-                    System.out.println("Defunción: " + (a.isDefuncion() ? ColoresUtils.VERDE + "Sí" + ColoresUtils.RESET : ColoresUtils.ROJO + "No" + ColoresUtils.RESET));
-                    if (a.isDefuncion()) {
-                        System.out.println("Fecha de Fallecimiento: " + a.getFechaFallecimiento());
-                    }
-                    System.out.println("Biografía: " + a.getBiografia());
-                    System.out.println("Foto: " + a.getFoto());
-                    System.out.println("Género Literario: " + a.getGeneroLiterario());
-                    System.out.println("Premios: " + a.getPremios());
-                    System.out.println("Obras Destacadas: " + a.getObrasDestacadas());
-                    encontrado = true;
-                    break;
+        if (id == 0) {
+            InputUtils.limpiarPantalla();
+            return;
+        }
+
+        boolean encontrado = false;
+
+        for (Autor a : autores) {
+
+            if (a.getIdAutor() == id) {
+
+                System.out.println(
+                    ColoresUtils.NEGRITA +
+                    "\n---- DETALLES DEL AUTOR ----" +
+                    ColoresUtils.RESET
+                );
+
+                System.out.println("ID: " + a.getIdAutor());
+                System.out.println("Nombre: " + a.getNombre());
+                System.out.println("Nacionalidad: " + a.getNacionalidad());
+                System.out.println("Fecha de nacimiento: " + a.getFechaNacimiento());
+
+                System.out.println(
+                    "Defunción: " +
+                    (a.isDefuncion()
+                        ? ColoresUtils.VERDE + "Sí"
+                        : ColoresUtils.ROJO + "No")
+                    + ColoresUtils.RESET
+                );
+
+                if (a.isDefuncion()) {
+                    System.out.println(
+                        "Fecha de fallecimiento: " +
+                        a.getFechaFallecimiento()
+                    );
                 }
-            }
 
-            if (!encontrado) {
-                System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "\nNo se encontró ningún autor con ese ID." + ColoresUtils.RESET);
+                System.out.println("Biografía: " + a.getBiografia());
+                System.out.println("Foto: " + a.getFoto());
+                System.out.println("Género literario: " + a.getGeneroLiterario());
+                System.out.println("Premios: " + a.getPremios());
+                System.out.println("Obras destacadas: " + a.getObrasDestacadas());
+
+                encontrado = true;
+                break;
             }
         }
+
+        if (!encontrado) {
+
+            System.out.println(
+                ColoresUtils.ROJO +
+                "Autor no encontrado." +
+                ColoresUtils.RESET
+            );
+        }
+
         InputUtils.pausa(sc);
         InputUtils.limpiarPantalla();
     }
 
-    public static void estadisticasAutores(Scanner sc, List<Autor> autores, List<Libro> libros) {
+    public static void estadisticasAutores(Scanner sc) {
+
         TitlesUtils.tituloEstadisticas();
-        System.out.println("\n1. " + ColoresUtils.AZUL + "Libros por autor" + ColoresUtils.RESET);
-        System.out.println("2. " + ColoresUtils.MORADO + "Páginas por libro " + ColoresUtils.RESET);
-        System.out.println("3. " + ColoresUtils.NARANJA + "Edades " + ColoresUtils.RESET);
-        System.out.println("4. " + ColoresUtils.VERDE + "Total " + ColoresUtils.RESET);
-        System.out.println("5. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
-        int tipo = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 5);
+
+        System.out.println("\n1. Autor/es con más libros");
+        System.out.println("2. Autor/es con el libro más largo");
+        System.out.println("3. Autor/es más viejos");
+        System.out.println("4. Total autores");
+        System.out.println("5. Salir");
+
+        int opcion = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 5);
+
         InputUtils.limpiarPantalla();
-        int stat;
 
-        switch (tipo) {
-            case 1:
-                TitlesUtils.tituloEstadisticas();
-                System.out.println("\n1. Autor con " + ColoresUtils.CYAN + "más libros" + ColoresUtils.RESET + " en la biblioteca");
-                System.out.println("2. Autor con " + ColoresUtils.NARANJA + "menos libros" + ColoresUtils.RESET + " en la biblioteca");
-                System.out.println("3. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
-                stat = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 3);
-                InputUtils.limpiarPantalla();
+        switch (opcion) {
 
-                switch (stat) {
-                    case 1:
-                        List<Autor> maxAutores = UtilidadesAutores.autoresConMasLibros(autores);
+            case 1 -> {
 
-                        if (maxAutores.isEmpty()) {
-                            System.out.println(ColoresUtils.ROJO + "No hay autores en la biblioteca." + ColoresUtils.RESET);
-                        } else {
-                            int maxLibros = maxAutores.get(0).getNumeroLibros();
+                List<Autor> autoresMax = UtilidadesAutores.autoresConMasLibros();
 
-                            System.out.println("Autor/es con " + ColoresUtils.CYAN + "más libros " + ColoresUtils.RESET + ColoresUtils.NEGRITA + "(" + maxLibros + " libros)" + ColoresUtils.RESET);
-
-                            for (Autor a : maxAutores) {
-                                System.out.println("- " + a.getNombre());
-                            }
-                        }
-                        InputUtils.pausa(sc);
-                        InputUtils.limpiarPantalla();
-                        break;
-                    case 2:
-                        List<Autor> minAutores = UtilidadesAutores.autoresConMenosLibros(autores);
-                        
-                        if (minAutores.isEmpty()) {
-                            System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "No hay autores en la biblioteca." + ColoresUtils.RESET);
-                        } else {
-                            int minLibros = minAutores.get(0).getNumeroLibros();
-
-                            System.out.println("Autor/es con " + ColoresUtils.NARANJA + "menos libros " + ColoresUtils.RESET + ColoresUtils.NEGRITA + "(" + minLibros + " libros)" + ColoresUtils.RESET);
-
-                            for (Autor a : minAutores) {
-                                System.out.println("- " + a.getNombre());
-                            }
-                        }
-                        InputUtils.pausa(sc);
-                        InputUtils.limpiarPantalla();
-                        break;
-                    default:
-                        System.out.println(ColoresUtils.NEGRITA + ColoresUtils.ROJO + "Opción no valida." + ColoresUtils.RESET);
-                        break;
+                if (autoresMax.isEmpty()) {
+                    System.out.println("No hay autores.");
+                    break;
                 }
-                break;
-            case 2:
-                TitlesUtils.tituloEstadisticas();
-                System.out.println("\n1. Libro " + ColoresUtils.CYAN + "más Largo" + ColoresUtils.RESET);
-                System.out.println("2. Libro " + ColoresUtils.NARANJA + "más Corto" + ColoresUtils.RESET);
-                System.out.println("3. "  + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
-                stat = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 3);
-                InputUtils.limpiarPantalla();
 
-                switch (stat) {
-                    case 1:
-                        List<Autor> autoresMaxLibro = UtilidadesAutores.autoresLibroMasLargo(autores, libros);
+                System.out.println("Autor/es con más libros:");
 
-                        if (autoresMaxLibro == null || autoresMaxLibro.isEmpty() || libros == null || libros.isEmpty()) {
-                            System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "No hay autores o libros en la biblioteca." + ColoresUtils.RESET);
-                        } else {
-
-                            int maxPaginas = libros.stream()
-                                    .mapToInt(Libro::getNumeroPaginas)
-                                    .max()
-                                    .orElse(0);
-
-                            System.out.println("Autor/es con el libro " + ColoresUtils.CYAN + "más largo " + ColoresUtils.RESET + ColoresUtils.NEGRITA + "(" + maxPaginas + " páginas):" + ColoresUtils.RESET);
-                            for (Autor a : autoresMaxLibro) {
-                                System.out.println("- " + a.getNombre());
-                            }
-                        }
-                        InputUtils.pausa(sc);
-                        InputUtils.limpiarPantalla();
-                        break;
-                    case 2:
-                        List<Autor> autoresMinLibro = UtilidadesAutores.autoresLibroMasCorto(autores, libros);
-
-                        if (autoresMinLibro == null || autoresMinLibro.isEmpty() || libros == null || libros.isEmpty()) {
-                            System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "No hay autores o libros en la biblioteca." + ColoresUtils.RESET);
-                        } else {
-
-                            int minPaginas = libros.stream()
-                                    .mapToInt(Libro::getNumeroPaginas)
-                                    .min()
-                                    .orElse(0);
-
-                            System.out.println("Autor/es con el libro " + ColoresUtils.NARANJA + "más corto " + ColoresUtils.RESET + ColoresUtils.NEGRITA + "(" + minPaginas + " páginas):" + ColoresUtils.RESET);
-                            for (Autor a : autoresMinLibro) {
-                                System.out.println("- " + a.getNombre());
-                            }
-                        }
-                        InputUtils.pausa(sc);
-                        InputUtils.limpiarPantalla();
-                        break;
-                    default:
-                        break;
+                for (Autor a : autoresMax) {
+                    System.out.println("- " + a.getNombre());
                 }
-                break;
-            case 3:
-                TitlesUtils.tituloEstadisticas();
-                System.out.println("\n1. Autor " + ColoresUtils.CYAN + "más viejo" + ColoresUtils.RESET);
-                System.out.println("2. Autor " + ColoresUtils.NARANJA + "más joven" + ColoresUtils.RESET);
-                System.out.println("3. " + ColoresUtils.MORADO + "Edad media" + ColoresUtils.RESET + " de los autores");
-                System.out.println("4. "  + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
-                stat = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 4);
-                InputUtils.limpiarPantalla();
+            }
 
-                switch (stat) {
-                    case 1:
-                        List<Autor> viejos = UtilidadesAutores.autoresMasViejos(autores);
+            case 2 -> {
 
-                        if (viejos.isEmpty()) {
-                            System.out.println(ColoresUtils.ROJO + "No hay autores en la biblioteca." + ColoresUtils.RESET);
-                        } else {
-                            System.out.println(ColoresUtils.CYAN + "Autor/es más viejo/s " + ColoresUtils.RESET + ColoresUtils.NEGRITA + "(" + viejos.get(0).getEdad() + " años)" + ColoresUtils.RESET);
-                            for (Autor a : viejos) {
-                                System.out.println("- " + a.getNombre());
-                            }
-                        }
-                        InputUtils.pausa(sc);
-                        InputUtils.limpiarPantalla();
-                        break;
-                    case 2:
-                        List<Autor> jovenes = UtilidadesAutores.autoresMasJovenes(autores);
+                List<Autor> autoresMaxLibro = UtilidadesAutores.autoresConLibroMasLargo();
 
-                        if (jovenes.isEmpty()) {
-                            System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "No hay autores en la biblioteca." + ColoresUtils.RESET);
-                        } else {
-                            System.out.println(ColoresUtils.NARANJA + "Autor/es más joven/es " + ColoresUtils.RESET + ColoresUtils.NEGRITA + "(" + jovenes.get(0).getEdad() + " años)" + ColoresUtils.RESET);
-                            for (Autor a : jovenes) {
-                                System.out.println("- " + a.getNombre());
-                            }
-                        }
-                        InputUtils.pausa(sc);
-                        InputUtils.limpiarPantalla();
-                        break;
-                    case 3:
-                        double media = UtilidadesAutores.edadMediaAutores(autores);
-                        System.out.println("La " + ColoresUtils.MORADO + "edad media" + ColoresUtils.RESET + " de los autores es " + ColoresUtils.NEGRITA + media + ColoresUtils.RESET + "años");
-                        InputUtils.pausa(sc);
-                        InputUtils.limpiarPantalla();
-                        break;
-                    default:
-                        break;
+                if (autoresMaxLibro.isEmpty()) {
+                    System.out.println("No hay datos.");
+                    break;
                 }
-                break;
-            case 4: 
-                int total = UtilidadesAutores.totalAutores(autores);
-                System.out.println("El " + ColoresUtils.NEGRITA + "total" + ColoresUtils.RESET + " de autores en la biblioteca es " + ColoresUtils.VERDE + ColoresUtils.NEGRITA + total + ColoresUtils.RESET);
-                InputUtils.pausa(sc);
-                InputUtils.limpiarPantalla();
-                break;
-            default:
-                break;
+
+                System.out.println("Autor/es con el libro más largo:");
+
+                for (Autor a : autoresMaxLibro) {
+                    System.out.println("- " + a.getNombre());
+                }
+            }
+
+            case 3 -> {
+
+                List<Autor> viejos = UtilidadesAutores.autoresMasViejos();
+
+                if (viejos.isEmpty()) {
+                    System.out.println("No hay autores.");
+                    break;
+                }
+
+                System.out.println("Autor/es más viejos:");
+
+                for (Autor a : viejos) {
+                    System.out.println("- " + a.getNombre() + " (" + a.getEdad() + " años)");
+                }
+            }
+
+            case 4 -> {
+
+                int total = UtilidadesAutores.totalAutores();
+
+                System.out.println("Total de autores: " + total);
+            }
+
+            default -> {}
         }
+
+        InputUtils.pausa(sc);
+        InputUtils.limpiarPantalla();
     }
 }

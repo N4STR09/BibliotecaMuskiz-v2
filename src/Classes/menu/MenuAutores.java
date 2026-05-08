@@ -1,16 +1,14 @@
 package src.Classes.menu;
 
-import java.util.List;
 import java.util.Scanner;
 
-import src.Classes.model.*;
 import src.Classes.service.ServiceAutores;
 import src.Classes.utils.ColoresUtils;
 import src.Classes.utils.InputUtils;
 import src.Classes.utils.TitlesUtils;
 
 public class MenuAutores {
-    public static void mostrar(Scanner sc, List<Autor> autores, List<Libro> libros) {
+    public static void mostrar(Scanner sc) {
         
         TitlesUtils.tituloAutores();
         System.out.println("\n1. " + ColoresUtils.VERDE + "Añadir"+ ColoresUtils.RESET);
@@ -23,16 +21,16 @@ public class MenuAutores {
 
         switch (accion) {
             case 1:
-                ServiceAutores.añadirAutor(sc, autores, libros);
+                ServiceAutores.añadirAutor(sc);
                 break;
             case 2:
-                ServiceAutores.eliminarAutor(sc, autores, libros);
+                ServiceAutores.eliminarAutor(sc);
                 break;
             case 3:
-                ServiceAutores.visualizarAutores(sc, autores, libros);
+                ServiceAutores.visualizarAutores(sc);
                 break;
             case 4: 
-                ServiceAutores.estadisticasAutores(sc, autores, libros);
+                ServiceAutores.estadisticasAutores(sc);
                 break;
             default:
                 break;

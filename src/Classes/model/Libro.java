@@ -1,11 +1,14 @@
 package src.Classes.model;
 
 public class Libro {
+
     private int idLibro;
     private int existencias;
     private int numeroPaginas;
     private String titulo;
-    private Autor autor; //objeto Autor
+
+    private int idAutor; // FK directa (BD)
+
     private String genero;
     private int anioPublicacion;
     private String editorial;
@@ -17,15 +20,28 @@ public class Libro {
     private String categoria;
     private boolean disponibilidad;
 
-    public Libro(int idLibro, int existencias, int numeroPaginas, String titulo,
-                    Autor autor, String genero, int anioPublicacion, String editorial,
-                    String isbn, String idioma, String formato, String portada,
-                    String descripcion, String categoria, boolean disponibilidad) {
+    // 🔹 Constructor completo (lectura desde BD)
+    public Libro(int idLibro,
+                 int existencias,
+                 int numeroPaginas,
+                 String titulo,
+                 int idAutor,
+                 String genero,
+                 int anioPublicacion,
+                 String editorial,
+                 String isbn,
+                 String idioma,
+                 String formato,
+                 String portada,
+                 String descripcion,
+                 String categoria,
+                 boolean disponibilidad) {
+
         this.idLibro = idLibro;
         this.existencias = existencias;
         this.numeroPaginas = numeroPaginas;
         this.titulo = titulo;
-        this.autor = autor;
+        this.idAutor = idAutor;
         this.genero = genero;
         this.anioPublicacion = anioPublicacion;
         this.editorial = editorial;
@@ -38,8 +54,31 @@ public class Libro {
         this.disponibilidad = disponibilidad;
     }
 
-    public int getIdLibro() { 
-        return idLibro; 
+    // 🔹 Constructor para INSERT (sin ID)
+    public Libro(int existencias,
+                 int numeroPaginas,
+                 String titulo,
+                 int idAutor,
+                 String genero,
+                 int anioPublicacion,
+                 String editorial,
+                 String isbn,
+                 String idioma,
+                 String formato,
+                 String portada,
+                 String descripcion,
+                 String categoria,
+                 boolean disponibilidad) {
+
+        this(0, existencias, numeroPaginas, titulo, idAutor,
+             genero, anioPublicacion, editorial, isbn,
+             idioma, formato, portada, descripcion,
+             categoria, disponibilidad);
+    }
+
+    // GETTERS / SETTERS
+    public int getIdLibro() {
+        return idLibro;
     }
 
     public void setIdLibro(int idLibro) {
@@ -70,16 +109,12 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public Autor getAutorObj() {
-        return autor;
+    public int getIdAutor() {
+        return idAutor;
     }
 
-    public String getAutor() { 
-        return autor.getNombre();
-    }
-
-    public void setAutor(Autor autor) {
-        this.autor = autor;
+    public void setIdAutor(int idAutor) {
+        this.idAutor = idAutor;
     }
 
     public String getGenero() {
@@ -162,22 +197,13 @@ public class Libro {
         this.disponibilidad = disponibilidad;
     }
 
-    public String getNombreAutor() {
-        return autor.getNombre();
-    }
-
     @Override
     public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+        return "Libro{" +
+                "idLibro=" + idLibro +
+                ", titulo='" + titulo + '\'' +
+                ", idAutor=" + idAutor +
+                ", paginas=" + numeroPaginas +
+                '}';
     }
 }

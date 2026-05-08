@@ -38,6 +38,10 @@ public abstract class Persona {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getEdad() {
         return edad;
     }

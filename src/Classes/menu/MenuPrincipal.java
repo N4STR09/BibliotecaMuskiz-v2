@@ -20,10 +20,10 @@ public class MenuPrincipal {
 
             switch (opcion) {
                 case 1:
-                    MenuAutores.mostrar(sc, autores, libros);
+                    MenuAutores.mostrar(sc);
                     break;
                 case 2:
-                    MenuLibros.mostrar(sc, autores, libros);
+                    MenuLibros.mostrar(sc);
                 default:
                     break;
             }

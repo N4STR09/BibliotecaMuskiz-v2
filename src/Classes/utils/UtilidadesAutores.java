@@ -1,200 +1,202 @@
 package src.Classes.utils;
 
+import src.Classes.model.Autor;
+import src.Classes.repository.ConexionBD;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.Classes.model.Autor;
-import src.Classes.model.Libro;
-
 public class UtilidadesAutores {
 
-    //autor con más libros
-    public static List<Autor> autoresConMasLibros(List<Autor> autores) {
-        List<Autor> resultado = new ArrayList<>();
-        if (autores == null || autores.isEmpty()) return resultado;
+    // =========================
+    // AUTOR CON MÁS LIBROS
+    // =========================
+    public static List<Autor> autoresConMasLibros() {
 
-        int maxLibros = 0;
+        String sql = """
+            SELECT a.*
+            FROM autores a
+            LEFT JOIN libros l ON a.id_autor = l.id_autor
+            GROUP BY a.id_autor
+            HAVING COUNT(l.id_libro) = (
+                SELECT MAX(total)
+                FROM (
+                    SELECT COUNT(*) AS total
+                    FROM libros
+                    GROUP BY id_autor
+                ) t
+            )
+        """;
 
-        //calcular maximo
-        for (Autor a : autores) {
-            int numLibros = a.getLibrosEscritos().size();
-            if (numLibros > maxLibros) {
-                maxLibros = numLibros;
-            }
-        }
-
-        //obtener autores con maximo
-        for (Autor a : autores) {
-            if (a.getLibrosEscritos().size() == maxLibros) {
-                resultado.add(a);
-            }
-        }
-
-        return resultado;
+        return ejecutarAutores(sql);
     }
 
-    //autor con menos libros
-    public static List<Autor> autoresConMenosLibros(List<Autor> autores) {
-        List<Autor> resultado = new ArrayList<>();
-        if (autores == null || autores.isEmpty()) return resultado;
+    // =========================
+    // AUTOR CON MENOS LIBROS
+    // =========================
+    public static List<Autor> autoresConMenosLibros() {
 
-        int minLibros = 100000;
+        String sql = """
+            SELECT a.*
+            FROM autores a
+            LEFT JOIN libros l ON a.id_autor = l.id_autor
+            GROUP BY a.id_autor
+            HAVING COUNT(l.id_libro) = (
+                SELECT MIN(total)
+                FROM (
+                    SELECT COUNT(*) AS total
+                    FROM libros
+                    GROUP BY id_autor
+                ) t
+            )
+        """;
 
-        for (Autor a : autores) {
-            int numLibros = a.getLibrosEscritos().size();
-            if (numLibros < minLibros) {
-                minLibros = numLibros;
-            }
-        }
-
-        for (Autor a : autores) {
-            if (a.getLibrosEscritos().size() == minLibros) {
-                resultado.add(a);
-            }
-        }
-
-        return resultado;
+        return ejecutarAutores(sql);
     }
 
-    //autor con el libros mas largo
-    public static List<Autor> autoresLibroMasLargo(List<Autor> autores, List<Libro> libros) {
-        List<Autor> resultado = new ArrayList<>();
-        if (autores == null || autores.isEmpty() || libros == null || libros.isEmpty()) return resultado;
+    // =========================
+    // AUTOR CON LIBRO MÁS LARGO
+    // =========================
+    public static List<Autor> autoresConLibroMasLargo() {
 
-        int maxPaginas = -1;
+        String sql = """
+            SELECT DISTINCT a.*
+            FROM autores a
+            JOIN libros l ON l.id_autor = a.id_autor
+            WHERE l.numero_paginas = (
+                SELECT MAX(numero_paginas)
+                FROM libros
+            )
+        """;
 
-        //numero maximo de paginas
-        for (Autor a : autores) {
-            for (int idLibro : a.getLibrosEscritos()) {
-                Libro l = libros.stream()
-                                .filter(lib -> lib.getIdLibro() == idLibro)
-                                .findFirst()
-                                .orElse(null);
-                if (l != null && l.getNumeroPaginas() > maxPaginas) {
-                    maxPaginas = l.getNumeroPaginas();
-                }
-            }
-        }
-
-        //autores con un libro con max
-        for (Autor a : autores) {
-            for (int idLibro : a.getLibrosEscritos()) {
-                Libro l = libros.stream()
-                                .filter(lib -> lib.getIdLibro() == idLibro)
-                                .findFirst()
-                                .orElse(null);
-                if (l != null && l.getNumeroPaginas() == maxPaginas) {
-                    resultado.add(a);
-                    break;
-                }
-            }
-        }
-
-        return resultado;
+        return ejecutarAutores(sql);
     }
 
+    // =========================
+    // AUTOR MÁS VIEJO
+    // =========================
+    public static List<Autor> autoresMasViejos() {
 
-    //autor con el libros mas corto
-    public static List<Autor> autoresLibroMasCorto(List<Autor> autores, List<Libro> libros) {
-        List<Autor> resultado = new ArrayList<>();
-        if (autores == null || autores.isEmpty() || libros == null || libros.isEmpty()) return resultado;
+        String sql = """
+            SELECT *
+            FROM autores
+            WHERE TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) =
+            (
+                SELECT MAX(TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()))
+                FROM autores
+            )
+        """;
 
-        int minPaginas = 1000000;
-
-        for (Autor a : autores) {
-            for (int idLibro : a.getLibrosEscritos()) {
-                Libro l = libros.stream()
-                                .filter(lib -> lib.getIdLibro() == idLibro)
-                                .findFirst()
-                                .orElse(null);
-                if (l != null && l.getNumeroPaginas() < minPaginas) {
-                    minPaginas = l.getNumeroPaginas();
-                }
-            }
-        }
-
-        for (Autor a : autores) {
-            for (int idLibro : a.getLibrosEscritos()) {
-                Libro l = libros.stream()
-                                .filter(lib -> lib.getIdLibro() == idLibro)
-                                .findFirst()
-                                .orElse(null);
-                if (l != null && l.getNumeroPaginas() == minPaginas) {
-                    resultado.add(a);
-                    break;
-                }
-            }
-        }
-
-        return resultado;
+        return ejecutarAutores(sql);
     }
 
+    // =========================
+    // AUTOR MÁS JOVEN
+    // =========================
+    public static List<Autor> autoresMasJovenes() {
 
-    //autor mas viejo
-    public static List<Autor> autoresMasViejos(List<Autor> autores) {
-        List<Autor> resultado = new ArrayList<>();
-        if (autores == null || autores.isEmpty()) return resultado;
+        String sql = """
+            SELECT *
+            FROM autores
+            WHERE TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) =
+            (
+                SELECT MIN(TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()))
+                FROM autores
+            )
+        """;
 
-        int maxEdad = -1;
-
-        //edad maxima
-        for (Autor a : autores) {
-            int edad = a.getEdad();
-            if (edad > maxEdad) {
-                maxEdad = edad;
-            }
-        }
-
-        //autores con edad maxima
-        for (Autor a : autores) {
-            if (a.getEdad() == maxEdad) {
-                resultado.add(a);
-            }
-        }
-
-        return resultado;
+        return ejecutarAutores(sql);
     }
 
+    // =========================
+    // EDAD MEDIA
+    // =========================
+    public static double edadMediaAutores() {
 
-    //autor más joven
-    public static List<Autor> autoresMasJovenes(List<Autor> autores) {
-        List<Autor> resultado = new ArrayList<>();
-        if (autores == null || autores.isEmpty()) return resultado;
+        String sql = """
+            SELECT AVG(TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()))
+            FROM autores
+        """;
 
-        int minEdad = 1000;
+        try (Connection con = ConexionBD.conectar();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-        for (Autor a : autores) {
-            int edad = a.getEdad();
-            if (edad < minEdad) {
-                minEdad = edad;
+            if (rs.next()) {
+                return rs.getDouble(1);
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        for (Autor a : autores) {
-            if (a.getEdad() == minEdad) {
-                resultado.add(a);
-            }
-        }
-
-        return resultado;
+        return 0;
     }
 
-    //edad media autores
-    public static double edadMediaAutores(List<Autor> autores) {
-        if (autores == null || autores.isEmpty()) return 0;
+    // =========================
+    // TOTAL AUTORES
+    // =========================
+    public static int totalAutores() {
 
-        double total = 0;
+        String sql = "SELECT COUNT(*) FROM autores";
 
-        for (Autor a : autores) {
-            total += a.getEdad();
+        try (Connection con = ConexionBD.conectar();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        return total / autores.size();
+        return 0;
     }
 
-    //total de Autores en la biblioteca
-    public static int totalAutores(List<Autor> autores) {
-        if (autores == null) return 0;
-        return autores.size();
+    // =========================
+    // EJECUTOR GENÉRICO
+    // =========================
+    private static List<Autor> ejecutarAutores(String sql) {
+
+        List<Autor> autores = new ArrayList<>();
+
+        try (Connection con = ConexionBD.conectar();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                autores.add(mapAutor(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return autores;
+    }
+
+    // =========================
+    // MAPPER BD -> OBJETO
+    // =========================
+    private static Autor mapAutor(ResultSet rs) throws SQLException {
+
+        return new Autor(
+            rs.getInt("id_autor"),
+            rs.getString("nombre"),
+            rs.getString("nacionalidad"),
+            rs.getDate("fecha_nacimiento").toLocalDate(),
+            rs.getBoolean("defuncion"),
+            rs.getDate("fecha_fallecimiento") != null
+                ? rs.getDate("fecha_fallecimiento").toLocalDate()
+                : null,
+            rs.getString("biografia"),
+            rs.getString("foto"),
+            rs.getString("genero_literario"),
+            rs.getString("premios"),
+            rs.getString("obras_destacadas")
+        );
     }
 }
