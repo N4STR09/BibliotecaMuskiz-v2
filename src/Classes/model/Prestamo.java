@@ -3,22 +3,31 @@ package src.Classes.model;
 import java.time.LocalDate;
 
 public class Prestamo {
-    
+
     private int codPrestamo;
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
-    private Ejemplar ejemplar;
-    private Usuario usuario;
 
-    public Prestamo(int codPrestamo, LocalDate fechaPrestamo, LocalDate fechaDevolucion, Ejemplar ejemplar, Usuario usuario) {
+    private int codEjemplar;
+    private int idUsuario;
+
+    public Prestamo(int codPrestamo,
+                    LocalDate fechaPrestamo,
+                    LocalDate fechaDevolucion,
+                    int codEjemplar,
+                    int idUsuario) {
+
         this.codPrestamo = codPrestamo;
         this.fechaPrestamo = fechaPrestamo;
         this.fechaDevolucion = fechaDevolucion;
-        this.ejemplar = ejemplar;
-        this.usuario = usuario;
+        this.codEjemplar = codEjemplar;
+        this.idUsuario = idUsuario;
     }
 
-    //getters y setters
+    // ======================
+    // GETTERS
+    // ======================
+
     public int getCodPrestamo() {
         return codPrestamo;
     }
@@ -31,19 +40,46 @@ public class Prestamo {
         return fechaDevolucion;
     }
 
-    public Ejemplar getEjemplarObj() {
-        return ejemplar;
-    }
-
     public int getCodEjemplar() {
-        return ejemplar.getCodEjemplar();
-    }
-
-    public Usuario getUsuarioObj() {
-        return usuario;
+        return codEjemplar;
     }
 
     public int getIdUsuario() {
-        return usuario.getIdUsuario();
+        return idUsuario;
+    }
+
+    // ======================
+    // SETTERS
+    // ======================
+
+    public void setCodPrestamo(int codPrestamo) {
+        this.codPrestamo = codPrestamo;
+    }
+
+    public void setFechaPrestamo(LocalDate fechaPrestamo) {
+        this.fechaPrestamo = fechaPrestamo;
+    }
+
+    public void setFechaDevolucion(LocalDate fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
+    }
+
+    public void setCodEjemplar(int codEjemplar) {
+        this.codEjemplar = codEjemplar;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Prestamo{" +
+                "codPrestamo=" + codPrestamo +
+                ", fechaPrestamo=" + fechaPrestamo +
+                ", fechaDevolucion=" + fechaDevolucion +
+                ", codEjemplar=" + codEjemplar +
+                ", idUsuario=" + idUsuario +
+                '}';
     }
 }

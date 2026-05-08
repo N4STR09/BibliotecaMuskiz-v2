@@ -8,35 +8,40 @@ public class Usuario extends Persona {
     private boolean activo;
     private String dni;
     private int numeroSeguridadSocial;
-    private Penalizacion penalizacion;
+    private String password;
+    private Integer codPenalizacion;
+    private boolean admin;
 
-    public Usuario(int idUsuario, String nombre, LocalDate fechaNacimiento, boolean defuncion, LocalDate fechaFallecimiento, boolean activo, String dni, int numeroSeguridadSocial, Penalizacion penalizacion) {
+    public Usuario(int idUsuario, String nombre, LocalDate fechaNacimiento, boolean defuncion,
+                LocalDate fechaFallecimiento, boolean activo, String dni,
+                int numeroSeguridadSocial, String password, Integer codPenalizacion) {
+
         super(nombre, fechaNacimiento, defuncion, fechaFallecimiento);
         this.idUsuario = idUsuario;
         this.activo = activo;
         this.dni = dni;
         this.numeroSeguridadSocial = numeroSeguridadSocial;
+        this.password = password;
+        this.codPenalizacion = codPenalizacion;
+        this.admin = false;
     }
-
-    //metodos
 
     public void desactivarPorDefuncion() {
         if (isDefuncion()) {
-            setActivo(false);
+            this.activo = false;
         }
     }
 
-    //getters y setters
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
     public boolean isActivo() {
         return activo;
     }
 
     public void setActivo(boolean activo) {
         this.activo = activo;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
     }
 
     public String getDni() {
@@ -55,10 +60,35 @@ public class Usuario extends Persona {
         this.numeroSeguridadSocial = numeroSeguridadSocial;
     }
 
-    public Penalizacion getPenalizacionObj() {
-        return penalizacion;
+    public String getPassword() {
+        return password;
     }
-    public int getCodPenalizacion() {
-        return penalizacion.getCodPenalizacion();
+
+    public Integer getCodPenalizacion() {
+        return codPenalizacion;
+    }
+
+    public void setCodPenalizacion(Integer codPenalizacion) {
+        this.codPenalizacion = codPenalizacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "idUsuario=" + idUsuario +
+                ", nombre=" + getNombre() +
+                ", activo=" + activo +
+                ", dni='" + dni + '\'' +
+                ", nss=" + numeroSeguridadSocial +
+                ", codPenalizacion=" + codPenalizacion +
+                '}';
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

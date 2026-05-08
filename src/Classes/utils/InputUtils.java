@@ -91,4 +91,15 @@ public class InputUtils {
         }
     }
 
+    public static String leerPassword(Scanner sc, String mensaje) {
+        String pass;
+
+        do {
+            System.out.print(mensaje);
+            pass = sc.nextLine();
+        } while (pass.isBlank());
+
+        return pass;
+    }
+
 }

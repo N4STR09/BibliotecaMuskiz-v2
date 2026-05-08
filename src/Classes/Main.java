@@ -1,13 +1,11 @@
 package src.Classes;
 
-import java.util.List;
 import java.util.Scanner;
 
+import src.Classes.menu.MenuAdmin;
 import src.Classes.menu.MenuPrincipal;
-import src.Classes.model.Autor;
-import src.Classes.model.Libro;
-import src.Classes.repository.AutorRepository;
-import src.Classes.repository.LibroRepository;
+import src.Classes.model.Usuario;
+import src.Classes.service.LoginService;
 
 public class Main {
 
@@ -15,10 +13,18 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        List<Autor> autores = AutorRepository.cargarAutores();
-        List<Libro> libros = LibroRepository.cargarLibros();
+        Usuario usuario = null;
 
-        MenuPrincipal.mostrar(sc, autores, libros);
+        while (usuario == null) {
+            usuario = LoginService.login(sc);
+        }
+
+        // 👇 IMPORTANTE: misma sesión para todo
+        if (usuario.isAdmin()) {
+            MenuAdmin.mostrar(sc, usuario);
+        } else {
+            MenuPrincipal.mostrar(sc, usuario);
+        }
 
         sc.close();
     }

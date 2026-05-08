@@ -68,4 +68,24 @@ public class TitlesUtils {
         System.out.println(ColoresUtils.AMARILLO + "| |__\\__ \\ || (_| | (_| | \\__ \\ |_| | (_| (_| \\__ \\" + ColoresUtils.RESET);
         System.out.println(ColoresUtils.AMARILLO + "\\____/___/\\__\\__,_|\\__,_|_|___/\\__|_|\\___\\__,_|___/" + ColoresUtils.RESET);
     }
+
+    public static void tituloLogin(){
+        System.out.println(ColoresUtils.AZUL + "    __                _     " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.AZUL + "   / /   ____  ____ _(_)___ " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.AZUL + "  / /   / __ \\/ __ `/ / __ \\" + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.AZUL + " / /___/ /_/ / /_/ / / / / /" + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.AZUL + "/_____/\\____/\\__, /_/_/ /_/ " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.AZUL + "            /____/          " + ColoresUtils.RESET);
+    }
+
+    public static void tituloNuevoUsuario(){
+        System.out.println(ColoresUtils.AZUL + " _   _                          _   _                      _       " + ColoresUtils.RESET);
+System.out.println(ColoresUtils.AZUL + "| \\ | |                        | | | |                    (_)      " + ColoresUtils.RESET);
+System.out.println(ColoresUtils.AZUL + "|  \\| |_   _  _____   _____    | | | |___ _   _  __ _ _ __ _  ___  " + ColoresUtils.RESET);
+System.out.println(ColoresUtils.AZUL + "| . ` | | | |/ _ \\\\ \\\\ / / _ \\\\   | | | / __| | | |/ _` | '__| |/ _ \\\\ " + ColoresUtils.RESET);
+System.out.println(ColoresUtils.AZUL + "| |\\\\  | |_| |  __/\\\\ V / (_) |  | |_| \\\\__ \\\\ |_| | (_| | |  | | (_) |" + ColoresUtils.RESET);
+System.out.println(ColoresUtils.AZUL + "\\_| \\\\_/\\\\__,_|\\\\___| \\\\_/ \\\\___/    \\\\___/|___/\\\\__,_|\\\\__,_|_|  |_|\\\\___/ " + ColoresUtils.RESET);
+System.out.println(ColoresUtils.AZUL + "                                                                   " + ColoresUtils.RESET);
+System.out.println(ColoresUtils.AZUL + "                                                                   " + ColoresUtils.RESET);
+    }
 }

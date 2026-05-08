@@ -3,9 +3,6 @@
 /out/
 /target/
 
-# Datos persistentes (JSON)
-data/
-
 # Archivos de sistema
 .DS_Store
 Thumbs.db
