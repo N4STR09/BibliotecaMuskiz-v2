@@ -13,7 +13,6 @@ public class Autor extends Persona {
     private String premios;
     private String obrasDestacadas;
 
-    // CONSTRUCTOR (SIN listas de libros)
     public Autor(
             int idAutor,
             String nombre,
@@ -37,7 +36,7 @@ public class Autor extends Persona {
         this.obrasDestacadas = obrasDestacadas;
     }
 
-    // GETTERS Y SETTERS
+    //getters y setters
     public int getIdAutor() {
         return idAutor;
     }

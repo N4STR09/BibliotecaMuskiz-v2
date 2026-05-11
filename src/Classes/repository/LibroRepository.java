@@ -1,9 +1,6 @@
 package src.Classes.repository;
 
-import src.Classes.model.Autor;
 import src.Classes.model.Libro;
-import src.Classes.repository.ConexionBD;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

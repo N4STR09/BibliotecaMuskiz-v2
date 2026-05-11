@@ -9,9 +9,7 @@ import java.util.List;
 
 public class UtilidadesAutores {
 
-    // =========================
-    // AUTOR CON MÁS LIBROS
-    // =========================
+    //autor con mas libros
     public static List<Autor> autoresConMasLibros() {
 
         String sql = """
@@ -32,9 +30,7 @@ public class UtilidadesAutores {
         return ejecutarAutores(sql);
     }
 
-    // =========================
-    // AUTOR CON MENOS LIBROS
-    // =========================
+    //autor con menos libros
     public static List<Autor> autoresConMenosLibros() {
 
         String sql = """
@@ -55,9 +51,7 @@ public class UtilidadesAutores {
         return ejecutarAutores(sql);
     }
 
-    // =========================
-    // AUTOR CON LIBRO MÁS LARGO
-    // =========================
+    //autor libro mas largo
     public static List<Autor> autoresConLibroMasLargo() {
 
         String sql = """
@@ -73,9 +67,7 @@ public class UtilidadesAutores {
         return ejecutarAutores(sql);
     }
 
-    // =========================
-    // AUTOR MÁS VIEJO
-    // =========================
+    //autor mas viejo
     public static List<Autor> autoresMasViejos() {
 
         String sql = """
@@ -91,9 +83,7 @@ public class UtilidadesAutores {
         return ejecutarAutores(sql);
     }
 
-    // =========================
-    // AUTOR MÁS JOVEN
-    // =========================
+    //autor mas joven
     public static List<Autor> autoresMasJovenes() {
 
         String sql = """
@@ -109,9 +99,7 @@ public class UtilidadesAutores {
         return ejecutarAutores(sql);
     }
 
-    // =========================
-    // EDAD MEDIA
-    // =========================
+    //edad media
     public static double edadMediaAutores() {
 
         String sql = """
@@ -120,8 +108,8 @@ public class UtilidadesAutores {
         """;
 
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
                 return rs.getDouble(1);
@@ -134,9 +122,7 @@ public class UtilidadesAutores {
         return 0;
     }
 
-    // =========================
-    // TOTAL AUTORES
-    // =========================
+    //total autores
     public static int totalAutores() {
 
         String sql = "SELECT COUNT(*) FROM autores";
@@ -156,9 +142,7 @@ public class UtilidadesAutores {
         return 0;
     }
 
-    // =========================
-    // EJECUTOR GENÉRICO
-    // =========================
+    //ejecutor generico
     private static List<Autor> ejecutarAutores(String sql) {
 
         List<Autor> autores = new ArrayList<>();
@@ -178,9 +162,7 @@ public class UtilidadesAutores {
         return autores;
     }
 
-    // =========================
-    // MAPPER BD -> OBJETO
-    // =========================
+    //mapper bd -> objeto
     private static Autor mapAutor(ResultSet rs) throws SQLException {
 
         return new Autor(

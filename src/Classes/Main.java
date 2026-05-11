@@ -6,6 +6,7 @@ import src.Classes.menu.MenuAdmin;
 import src.Classes.menu.MenuPrincipal;
 import src.Classes.model.Usuario;
 import src.Classes.service.LoginService;
+import src.Classes.utils.InputUtils;
 
 public class Main {
 
@@ -19,12 +20,14 @@ public class Main {
             usuario = LoginService.login(sc);
         }
 
+        InputUtils.limpiarPantalla();
+
         if (usuario.isAdmin()) {
             MenuAdmin.mostrar(sc, usuario);
         } else {
             MenuPrincipal.mostrar(sc, usuario);
         }
-
+        
         sc.close();
     }
 }

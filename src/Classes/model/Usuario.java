@@ -2,8 +2,6 @@ package src.Classes.model;
 
 import java.time.LocalDate;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
 public class Usuario extends Persona {
 
     private int idUsuario;

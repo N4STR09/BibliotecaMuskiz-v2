@@ -1,10 +1,7 @@
 package src.Classes.menu;
 
-import java.util.List;
 import java.util.Scanner;
 
-import src.Classes.model.Usuario;
-import src.Classes.repository.UsuarioRepository;
 import src.Classes.service.ServiceUsuarios;
 import src.Classes.utils.ColoresUtils;
 import src.Classes.utils.InputUtils;

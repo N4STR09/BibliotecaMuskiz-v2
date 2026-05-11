@@ -24,10 +24,7 @@ public class Prestamo {
         this.idUsuario = idUsuario;
     }
 
-    // ======================
-    // GETTERS
-    // ======================
-
+    //getters y setters
     public int getCodPrestamo() {
         return codPrestamo;
     }
@@ -47,10 +44,6 @@ public class Prestamo {
     public int getIdUsuario() {
         return idUsuario;
     }
-
-    // ======================
-    // SETTERS
-    // ======================
 
     public void setCodPrestamo(int codPrestamo) {
         this.codPrestamo = codPrestamo;

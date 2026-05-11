@@ -99,11 +99,23 @@ public class ServiceLibros {
     public static void mostrarLibros(Scanner sc) {
 
         List<Libro> libros = LibroRepository.cargarLibros();
+        List<Autor> autores = AutorRepository.cargarAutores();
 
         TitlesUtils.tituloLibros();
 
         for (Libro l : libros) {
-            System.out.println(l.getIdLibro() + " - " + l.getTitulo() + " - Autor ID: " + l.getIdAutor());
+
+            String nombreAutor = autores.stream()
+                    .filter(a -> a.getIdAutor() == l.getIdAutor())
+                    .map(Autor::getNombre)
+                    .findFirst()
+                    .orElse("Desconocido");
+
+            System.out.println(
+                    l.getIdLibro() + " - " +
+                    l.getTitulo() + " - " +
+                    nombreAutor
+            );
         }
 
         int id = InputUtils.leerInt(sc, "ID (0 salir): ");
@@ -120,9 +132,15 @@ public class ServiceLibros {
             return;
         }
 
+        String nombreAutor = autores.stream()
+                .filter(a -> a.getIdAutor() == libro.getIdAutor())
+                .map(Autor::getNombre)
+                .findFirst()
+                .orElse("Desconocido");
+
         System.out.println("---- DETALLES ----");
         System.out.println("Título: " + libro.getTitulo());
-        System.out.println("Autor ID: " + libro.getIdAutor());
+        System.out.println("Autor: " + nombreAutor);
         System.out.println("Páginas: " + libro.getNumeroPaginas());
         System.out.println("Año: " + libro.getAnioPublicacion());
     }
@@ -134,7 +152,7 @@ public class ServiceLibros {
         System.out.println("\n1. Páginas");
         System.out.println("2. Existencias");
         System.out.println("3. Generales");
-        System.out.println("4. Salir");
+        System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Salir" + ColoresUtils.RESET);
 
         int op = InputUtils.leerNumeroMenu(sc, "Opción: ", 4);
 

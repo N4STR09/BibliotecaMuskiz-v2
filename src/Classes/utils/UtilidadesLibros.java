@@ -7,10 +7,7 @@ import java.util.*;
 
 public class UtilidadesLibros {
 
-    // =========================
-    // 📊 PAGINAS
-    // =========================
-
+    //paginas
     public static double mediaPaginas() {
 
         String sql = "SELECT AVG(numeroPaginas) FROM libros";
@@ -32,10 +29,7 @@ public class UtilidadesLibros {
         return ejecutarInt(sql);
     }
 
-    // =========================
-    // 📦 EXISTENCIAS
-    // =========================
-
+    //existencias
     public static double mediaExistencias() {
 
         String sql = "SELECT AVG(existencias) FROM libros";
@@ -57,10 +51,7 @@ public class UtilidadesLibros {
         return ejecutarInt(sql);
     }
 
-    // =========================
-    // 📊 GENERALES
-    // =========================
-
+    //generales
     public static double porcentajeDisponibles() {
 
         String sql = """
@@ -89,8 +80,8 @@ public class UtilidadesLibros {
         """;
 
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 map.put(rs.getString("genero"), rs.getInt("total"));
@@ -103,15 +94,12 @@ public class UtilidadesLibros {
         return map;
     }
 
-    // =========================
-    // 🧠 HELPERS
-    // =========================
-
+    //helpers
     private static double ejecutarDouble(String sql) {
 
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) return rs.getDouble(1);
 
@@ -125,8 +113,8 @@ public class UtilidadesLibros {
     private static int ejecutarInt(String sql) {
 
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) return rs.getInt(1);
 

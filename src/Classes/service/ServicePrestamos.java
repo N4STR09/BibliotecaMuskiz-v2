@@ -12,14 +12,11 @@ import src.Classes.repository.ConexionBD;
 
 public class ServicePrestamos {
 
-    // =========================
-    // SOLICITAR PRÉSTAMO
-    // =========================
+    //solicitar prestamo
     public static void solicitarPrestamo(Scanner sc, Usuario usuario) {
 
         try (Connection con = ConexionBD.conectar()) {
 
-            // 1. límite de préstamos activos
             String sqlCount = """
                 SELECT COUNT(*)
                 FROM prestamos
@@ -41,7 +38,7 @@ public class ServicePrestamos {
                 }
             }
 
-            // 2. mostrar libros con ejemplares disponibles reales
+            //libros con ejemplares disponibles
             String sqlLibros = """
                 SELECT l.id_libro, l.titulo, COUNT(e.cod_ejemplar) AS disponibles
                 FROM libros l
@@ -53,7 +50,7 @@ public class ServicePrestamos {
             System.out.println("\nLIBROS DISPONIBLES:\n");
 
             try (PreparedStatement ps = con.prepareStatement(sqlLibros);
-                 ResultSet rs = ps.executeQuery()) {
+                ResultSet rs = ps.executeQuery()) {
 
                 boolean hay = false;
 
@@ -72,10 +69,10 @@ public class ServicePrestamos {
                 }
             }
 
-            // 3. seleccionar libro
+            //seleccionar libro
             int idLibro = InputUtils.leerInt(sc, "\nID del libro: ");
 
-            // 4. obtener ejemplar disponible real
+            //obtener ejemplar disponible real
             String sqlEjemplar = """
                 SELECT cod_ejemplar
                 FROM ejemplares
@@ -102,7 +99,7 @@ public class ServicePrestamos {
                 codEjemplar = rs.getInt("cod_ejemplar");
             }
 
-            // 5. insertar préstamo
+            //insertar prestamo
             String sqlInsert = """
                 INSERT INTO prestamos (
                     fecha_prestamo,
@@ -121,7 +118,7 @@ public class ServicePrestamos {
                 ps.executeUpdate();
             }
 
-            // 6. marcar ejemplar como prestado
+            //marcar ejemplar como prestado
             String sqlUpdateEjemplar = """
                 UPDATE ejemplares
                 SET estado = 'PRESTADO'
@@ -145,9 +142,7 @@ public class ServicePrestamos {
         }
     }
 
-    // =========================
-    // VER PRÉSTAMOS ACTIVOS
-    // =========================
+    //ver prestamos activos
     public static void verPrestamosActivos(Scanner sc, Usuario usuario) {
 
         String sql = """
@@ -191,9 +186,7 @@ public class ServicePrestamos {
         }
     }
 
-    // =========================
-    // DEVOLVER PRÉSTAMO
-    // =========================
+    //devolver prestamo
     public static void gestionarPrestamos(Scanner sc, Usuario usuario) {
 
         boolean hayPrestamos = listarPrestamosActivos(sc, usuario);
@@ -208,9 +201,7 @@ public class ServicePrestamos {
 
         try (Connection con = ConexionBD.conectar()) {
 
-            // =========================
-            // obtener ejemplar
-            // =========================
+            //obtener ejemplar
             String sqlGet = """
                 SELECT cod_ejemplar
                 FROM prestamos
@@ -237,9 +228,7 @@ public class ServicePrestamos {
                 codEjemplar = rs.getInt("cod_ejemplar");
             }
 
-            // =========================
-            // marcar devolución
-            // =========================
+            //marcar devolucion
             String sqlDev = """
                 UPDATE prestamos
                 SET fecha_devolucion = ?
@@ -256,9 +245,7 @@ public class ServicePrestamos {
                 ps.executeUpdate();
             }
 
-            // =========================
-            // devolver ejemplar
-            // =========================
+            //devolver ejemplar
             String sqlEjemplar = """
                 UPDATE ejemplares
                 SET estado = 'DISPONIBLE'

@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import src.Classes.model.Autor;
-import src.Classes.model.Libro;
 import src.Classes.repository.AutorRepository;
-import src.Classes.repository.LibroRepository;
 import src.Classes.utils.ColoresUtils;
 import src.Classes.utils.InputUtils;
 import src.Classes.utils.TitlesUtils;
@@ -235,7 +233,7 @@ public class ServiceAutores {
         System.out.println("2. Autor/es con el libro más largo");
         System.out.println("3. Autor/es más viejos");
         System.out.println("4. Total autores");
-        System.out.println("5. Salir");
+        System.out.println("5. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Salir" + ColoresUtils.RESET);
 
         int opcion = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 5);
 

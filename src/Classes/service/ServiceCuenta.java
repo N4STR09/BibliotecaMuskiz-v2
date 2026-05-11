@@ -13,9 +13,7 @@ import src.Classes.utils.TitlesUtils;
 
 public class ServiceCuenta {
 
-    // =========================
-    // MODIFICAR DATOS USUARIO
-    // =========================
+    //modificar datos
     public static void modificarDatos(Scanner sc, Usuario u) {
 
         int opcion;
@@ -59,9 +57,7 @@ public class ServiceCuenta {
         InputUtils.limpiarPantalla();
     }
 
-    // =========================
-    // CAMBIAR CONTRASEÑA
-    // =========================
+    //cambiar contraseña
     public static void cambiarPassword(Scanner sc, Usuario u) {
 
         String actual = InputUtils.leerPassword(sc, "Contraseña actual: ");
@@ -82,9 +78,7 @@ public class ServiceCuenta {
         InputUtils.limpiarPantalla();
     }
 
-    // =========================
-    // UPDATE GENÉRICO
-    // =========================
+    //update generico
     private static void actualizarCampo(int idUsuario, String campo, Object valor) {
 
         String sql = "UPDATE usuarios SET " + campo + " = ? WHERE id_usuario = ?";

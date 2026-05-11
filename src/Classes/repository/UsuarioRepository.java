@@ -1,16 +1,13 @@
 package src.Classes.repository;
 
 import src.Classes.model.Usuario;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioRepository {
 
-    // =========================
-    // INSERTAR USUARIO
-    // =========================
+    //insertar usuario
     public static void guardarUsuario(Usuario u) {
 
         String sql = """
@@ -30,7 +27,7 @@ public class UsuarioRepository {
         """;
 
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, u.getIdUsuario());
             ps.setString(2, u.getNombre());
@@ -61,9 +58,7 @@ public class UsuarioRepository {
         }
     }
 
-    // =========================
-    // CARGAR USUARIOS
-    // =========================
+    //cargar usuario
     public static List<Usuario> cargarUsuarios() {
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -111,15 +106,13 @@ public class UsuarioRepository {
         return usuarios;
     }
 
-    // =========================
-    // ELIMINAR USUARIO
-    // =========================
+    //eliminar usuario
     public static void eliminarUsuario(int idUsuario) {
 
         String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
 
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idUsuario);
 
@@ -136,9 +129,7 @@ public class UsuarioRepository {
         }
     }
 
-    // =========================
-    // BUSCAR POR ID
-    // =========================
+    //buscar por id
     public static Usuario buscarPorId(int idUsuario) {
 
         String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
@@ -159,7 +150,7 @@ public class UsuarioRepository {
                     codPenalizacion = tmp;
                 }
 
-                boolean admin = rs.getBoolean("admin"); // 👈 AQUÍ
+                boolean admin = rs.getBoolean("admin");
 
                 return new Usuario(
                     rs.getInt("id_usuario"),
@@ -185,9 +176,7 @@ public class UsuarioRepository {
         return null;
     }
 
-    // =========================
-    // LOGIN
-    // =========================
+    //login
     public static Usuario login(String dni, String password) {
 
         String sql = """

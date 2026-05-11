@@ -6,9 +6,7 @@ public class Libro {
     private int existencias;
     private int numeroPaginas;
     private String titulo;
-
-    private int idAutor; // FK directa (BD)
-
+    private int idAutor;
     private String genero;
     private int anioPublicacion;
     private String editorial;
@@ -20,22 +18,21 @@ public class Libro {
     private String categoria;
     private boolean disponibilidad;
 
-    // 🔹 Constructor completo (lectura desde BD)
     public Libro(int idLibro,
-                 int existencias,
-                 int numeroPaginas,
-                 String titulo,
-                 int idAutor,
-                 String genero,
-                 int anioPublicacion,
-                 String editorial,
-                 String isbn,
-                 String idioma,
-                 String formato,
-                 String portada,
-                 String descripcion,
-                 String categoria,
-                 boolean disponibilidad) {
+                int existencias,
+                int numeroPaginas,
+                String titulo,
+                int idAutor,
+                String genero,
+                int anioPublicacion,
+                String editorial,
+                String isbn,
+                String idioma,
+                String formato,
+                String portada,
+                String descripcion,
+                String categoria,
+                boolean disponibilidad) {
 
         this.idLibro = idLibro;
         this.existencias = existencias;
@@ -54,29 +51,28 @@ public class Libro {
         this.disponibilidad = disponibilidad;
     }
 
-    // 🔹 Constructor para INSERT (sin ID)
     public Libro(int existencias,
-                 int numeroPaginas,
-                 String titulo,
-                 int idAutor,
-                 String genero,
-                 int anioPublicacion,
-                 String editorial,
-                 String isbn,
-                 String idioma,
-                 String formato,
-                 String portada,
-                 String descripcion,
-                 String categoria,
-                 boolean disponibilidad) {
+                int numeroPaginas,
+                String titulo,
+                int idAutor,
+                String genero,
+                int anioPublicacion,
+                String editorial,
+                String isbn,
+                String idioma,
+                String formato,
+                String portada,
+                String descripcion,
+                String categoria,
+                boolean disponibilidad) {
 
         this(0, existencias, numeroPaginas, titulo, idAutor,
-             genero, anioPublicacion, editorial, isbn,
-             idioma, formato, portada, descripcion,
-             categoria, disponibilidad);
+            genero, anioPublicacion, editorial, isbn,
+            idioma, formato, portada, descripcion,
+            categoria, disponibilidad);
     }
 
-    // GETTERS / SETTERS
+    //getters y setters
     public int getIdLibro() {
         return idLibro;
     }

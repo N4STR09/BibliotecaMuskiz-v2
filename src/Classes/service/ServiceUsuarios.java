@@ -12,9 +12,7 @@ import src.Classes.utils.TitlesUtils;
 
 public class ServiceUsuarios {
 
-    // =========================
-    // AÑADIR USUARIO
-    // =========================
+    //añadir usuario
     public static void añadirUsuario(Scanner sc) {
 
         String nombre = InputUtils.leerString(sc, "Nombre: ");
@@ -48,9 +46,7 @@ public class ServiceUsuarios {
         InputUtils.limpiarPantalla();
     }
 
-    // =========================
-    // ELIMINAR USUARIO
-    // =========================
+    //eliminar usuario
     public static void eliminarUsuario(Scanner sc) {
 
         List<Usuario> usuarios = UsuarioRepository.cargarUsuarios();
@@ -102,9 +98,7 @@ public class ServiceUsuarios {
         InputUtils.limpiarPantalla();
     }
 
-    // =========================
-    // MOSTRAR USUARIOS
-    // =========================
+    //mostrar usuario
     public static void mostrarUsuarios(Scanner sc) {
 
         //TitlesUtils.tituloUsuarios();
