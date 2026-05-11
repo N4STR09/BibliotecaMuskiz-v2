@@ -19,7 +19,6 @@ public class Main {
             usuario = LoginService.login(sc);
         }
 
-        // 👇 IMPORTANTE: misma sesión para todo
         if (usuario.isAdmin()) {
             MenuAdmin.mostrar(sc, usuario);
         } else {

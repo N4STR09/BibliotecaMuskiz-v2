@@ -36,7 +36,8 @@ public class ServiceUsuarios {
                 dni,
                 nss,
                 password,
-                codPenalizacion
+                codPenalizacion,
+                false
         );
 
         UsuarioRepository.guardarUsuario(u);

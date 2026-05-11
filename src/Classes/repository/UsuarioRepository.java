@@ -71,8 +71,8 @@ public class UsuarioRepository {
         String sql = "SELECT * FROM usuarios";
 
         try (Connection con = ConexionBD.conectar();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(sql)) {
 
             while (rs.next()) {
 
@@ -82,6 +82,8 @@ public class UsuarioRepository {
                 if (!rs.wasNull()) {
                     codPenalizacion = tmp;
                 }
+
+                boolean admin = rs.getBoolean("admin"); // 👈 AQUÍ
 
                 Usuario u = new Usuario(
                     rs.getInt("id_usuario"),
@@ -95,7 +97,8 @@ public class UsuarioRepository {
                     rs.getString("dni"),
                     rs.getInt("numero_seguridad_social"),
                     rs.getString("password"),
-                    codPenalizacion
+                    codPenalizacion,
+                    admin
                 );
 
                 usuarios.add(u);
@@ -141,7 +144,7 @@ public class UsuarioRepository {
         String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
 
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idUsuario);
 
@@ -156,6 +159,8 @@ public class UsuarioRepository {
                     codPenalizacion = tmp;
                 }
 
+                boolean admin = rs.getBoolean("admin"); // 👈 AQUÍ
+
                 return new Usuario(
                     rs.getInt("id_usuario"),
                     rs.getString("nombre"),
@@ -168,7 +173,8 @@ public class UsuarioRepository {
                     rs.getString("dni"),
                     rs.getInt("numero_seguridad_social"),
                     rs.getString("password"),
-                    codPenalizacion
+                    codPenalizacion,
+                    admin
                 );
             }
 
@@ -207,6 +213,8 @@ public class UsuarioRepository {
                     codPenalizacion = tmp;
                 }
 
+                boolean admin = rs.getBoolean("admin");
+
                 return new Usuario(
                     rs.getInt("id_usuario"),
                     rs.getString("nombre"),
@@ -219,7 +227,8 @@ public class UsuarioRepository {
                     rs.getString("dni"),
                     rs.getInt("numero_seguridad_social"),
                     rs.getString("password"),
-                    codPenalizacion
+                    codPenalizacion,
+                    admin
                 );
             }
 

@@ -2,6 +2,8 @@ package src.Classes.model;
 
 import java.time.LocalDate;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 public class Usuario extends Persona {
 
     private int idUsuario;
@@ -14,7 +16,7 @@ public class Usuario extends Persona {
 
     public Usuario(int idUsuario, String nombre, LocalDate fechaNacimiento, boolean defuncion,
                 LocalDate fechaFallecimiento, boolean activo, String dni,
-                int numeroSeguridadSocial, String password, Integer codPenalizacion) {
+                int numeroSeguridadSocial, String password, Integer codPenalizacion, boolean admin) {
 
         super(nombre, fechaNacimiento, defuncion, fechaFallecimiento);
         this.idUsuario = idUsuario;
@@ -23,7 +25,7 @@ public class Usuario extends Persona {
         this.numeroSeguridadSocial = numeroSeguridadSocial;
         this.password = password;
         this.codPenalizacion = codPenalizacion;
-        this.admin = false;
+        this.admin = admin;
     }
 
     public void desactivarPorDefuncion() {

@@ -160,7 +160,7 @@ public class ServicePrestamos {
         """;
 
         try (Connection con = ConexionBD.conectar();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, usuario.getIdUsuario());
 
@@ -201,7 +201,7 @@ public class ServicePrestamos {
         if (!hayPrestamos) {
             InputUtils.pausa(sc);
             InputUtils.limpiarPantalla();
-            return; // 🔥 corta el flujo aquí
+            return;
         }
 
         int codPrestamo = InputUtils.leerInt(sc, "\nCódigo del préstamo a devolver: ");
@@ -295,7 +295,7 @@ public class ServicePrestamos {
     """;
 
     try (Connection con = ConexionBD.conectar();
-         PreparedStatement ps = con.prepareStatement(sql)) {
+        PreparedStatement ps = con.prepareStatement(sql)) {
 
         ps.setInt(1, usuario.getIdUsuario());
 
