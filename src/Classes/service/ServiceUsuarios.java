@@ -18,7 +18,7 @@ public class ServiceUsuarios {
     public static void añadirUsuario(Scanner sc) {
 
         String nombre = InputUtils.leerString(sc, "Nombre: ");
-        String dni = InputUtils.leerString(sc, "DNI: ");
+        String dni = InputUtils.leerPassword(sc, "DNI: ");
         int nss = InputUtils.leerInt(sc, "Número Seguridad Social: ");
         String password = InputUtils.leerPassword(sc, "Password: ");
 
