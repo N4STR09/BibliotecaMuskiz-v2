@@ -14,12 +14,12 @@ public class MenuUsuarios {
         int opcion;
 
         do {
-            //TitlesUtils.tituloUsuarios();
+            TitlesUtils.tituloUsuarios();
 
             System.out.println("\n1. " + ColoresUtils.VERDE + "Añadir" + ColoresUtils.RESET);
             System.out.println("2. " + ColoresUtils.ROJO + "Eliminar" + ColoresUtils.RESET);
             System.out.println("3. " + ColoresUtils.AZUL + "Mostrar" + ColoresUtils.RESET);
-            System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Salir" + ColoresUtils.RESET);
+            System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
 
             opcion = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 4);
             InputUtils.limpiarPantalla();
@@ -34,7 +34,7 @@ public class MenuUsuarios {
 
                 case 4 -> {}
 
-                default -> System.out.println("Opción no válida.");
+                default -> System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Opción no válida." + ColoresUtils.RESET);
             }
 
         } while (opcion != 4);

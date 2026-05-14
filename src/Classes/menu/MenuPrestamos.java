@@ -18,7 +18,7 @@ public class MenuPrestamos {
             System.out.println("\n1. " + ColoresUtils.VERDE + "Solicitar préstamo" + ColoresUtils.RESET);
             System.out.println("2. " + ColoresUtils.CYAN + "Ver préstamos activos" + ColoresUtils.RESET);
             System.out.println("3. " + ColoresUtils.AMARILLO + "Gestionar préstamos" + ColoresUtils.RESET);
-            System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Salir" + ColoresUtils.RESET);
+            System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
 
             opcion = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 4);
 
@@ -36,7 +36,7 @@ public class MenuPrestamos {
                     // salir limpio
                 }
 
-                default -> System.out.println("Opción inválida");
+                default -> System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Opción inválida" + ColoresUtils.RESET);
             }
 
         } while (opcion != 4);

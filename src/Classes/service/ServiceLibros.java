@@ -138,7 +138,7 @@ public class ServiceLibros {
                 .findFirst()
                 .orElse("Desconocido");
 
-        System.out.println("---- DETALLES ----");
+        TitlesUtils.tituloDetalles();
         System.out.println("Título: " + libro.getTitulo());
         System.out.println("Autor: " + nombreAutor);
         System.out.println("Páginas: " + libro.getNumeroPaginas());
@@ -149,28 +149,31 @@ public class ServiceLibros {
 
         TitlesUtils.tituloEstadisticas();
 
-        System.out.println("\n1. Páginas");
-        System.out.println("2. Existencias");
-        System.out.println("3. Generales");
-        System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Salir" + ColoresUtils.RESET);
+        System.out.println("\n1. " + ColoresUtils.AMARILLO_MOSTAZA +"Páginas" + ColoresUtils.RESET);
+        System.out.println("2. " + ColoresUtils.VERDE +"Existencias" + ColoresUtils.RESET);
+        System.out.println("3. " + ColoresUtils.AZUL + "Generales" + ColoresUtils.RESET);
+        System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
 
         int op = InputUtils.leerNumeroMenu(sc, "Opción: ", 4);
 
         switch (op) {
 
             case 1 -> {
-                System.out.println("Media páginas: " + UtilidadesLibros.mediaPaginas());
-                System.out.println("Max páginas: " + UtilidadesLibros.maxPaginas());
-                System.out.println("Min páginas: " + UtilidadesLibros.minPaginas());
+                //Poner limpiar pantlla aquí para que no se mezcle con el menú
+                System.out.println(ColoresUtils.CYAN_CLARO + "Media" + ColoresUtils.RESET + " páginas: " + UtilidadesLibros.mediaPaginas());
+                System.out.println(ColoresUtils.MORADO_CLARO + "Max" + ColoresUtils.RESET + " páginas: " + UtilidadesLibros.maxPaginas());
+                System.out.println(ColoresUtils.VERDE_BOSQUE + "Min" + ColoresUtils.RESET + " páginas: " + UtilidadesLibros.minPaginas());
             }
 
             case 2 -> {
-                System.out.println("Media existencias: " + UtilidadesLibros.mediaExistencias());
-                System.out.println("Max existencias: " + UtilidadesLibros.maxExistencias());
-                System.out.println("Min existencias: " + UtilidadesLibros.minExistencias());
+                //Poner limpiar pantlla aquí para que no se mezcle con el menú
+                System.out.println(ColoresUtils.CYAN_CLARO + "Media" + ColoresUtils.RESET + " existencias: " + UtilidadesLibros.mediaExistencias());
+                System.out.println(ColoresUtils.MORADO_CLARO + "Max" + ColoresUtils.RESET + " existencias: " + UtilidadesLibros.maxExistencias());
+                System.out.println(ColoresUtils.VERDE_BOSQUE + "Min" + ColoresUtils.RESET + " existencias: " + UtilidadesLibros.minExistencias());
             }
 
             case 3 -> {
+                //Poner limpiar pantlla aquí para que no se mezcle con el menú
                 System.out.println("Disponibilidad %: " + UtilidadesLibros.porcentajeDisponibles());
                 System.out.println("Total libros: " + UtilidadesLibros.totalLibros());
 

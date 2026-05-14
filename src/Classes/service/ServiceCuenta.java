@@ -19,13 +19,12 @@ public class ServiceCuenta {
         int opcion;
 
         do {
-            //TitlesUtils.tituloCuenta();
 
-            System.out.println("\nDATOS ACTUALES:");
-            System.out.println("1. Nombre: " + u.getNombre());
-            System.out.println("2. DNI: " + u.getDni());
-            System.out.println("3. Activo: " + u.isActivo());
-            System.out.println("4. Salir");
+            TitlesUtils.tituloDatosActuales();
+            System.out.println("1. " + ColoresUtils.AZUL + "Nombre: " + ColoresUtils.RESET + u.getNombre());
+            System.out.println("2. " + ColoresUtils.AMARILLO + "DNI: " + ColoresUtils.RESET + u.getDni());
+            System.out.println("3. " + ColoresUtils.NARANJA + "Activo: " + ColoresUtils.RESET + u.isActivo());
+            System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO +  "Salir" + ColoresUtils.RESET);
 
             opcion = InputUtils.leerNumeroMenu(sc, "\n¿Qué quieres modificar?: ", 4);
 

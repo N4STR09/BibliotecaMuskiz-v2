@@ -17,7 +17,7 @@ public class MenuCuenta {
 
             System.out.println("\n1. " + ColoresUtils.AZUL + "Modificar datos" + ColoresUtils.RESET);
             System.out.println("2. " + ColoresUtils.MORADO + "Cambiar contraseña" + ColoresUtils.RESET);
-            System.out.println("3. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Salir" + ColoresUtils.RESET);
+            System.out.println("3. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
 
             opcion = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 3);
 

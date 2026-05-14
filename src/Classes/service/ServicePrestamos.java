@@ -64,13 +64,20 @@ public class ServicePrestamos {
                 }
 
                 if (!hay) {
-                    System.out.println("No hay libros disponibles.");
+                    System.out.println(ColoresUtils.ROJO + "No hay libros disponibles." + ColoresUtils.RESET);
                     return;
                 }
             }
 
             //seleccionar libro
-            int idLibro = InputUtils.leerInt(sc, "\nID del libro: ");
+            int idLibro = InputUtils.leerInt(sc, "\nID del libro (0 para salir): ");
+
+            if (idLibro == 0) {
+                System.out.println(ColoresUtils.ROJO_LADRILLO + "Operación cancelada." + ColoresUtils.RESET);
+                InputUtils.pausa(sc);
+                InputUtils.limpiarPantalla();
+                return;
+            }
 
             //obtener ejemplar disponible real
             String sqlEjemplar = """

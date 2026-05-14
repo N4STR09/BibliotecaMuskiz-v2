@@ -17,7 +17,7 @@ public class ServiceAutores {
 
         TitlesUtils.tituloNuevoAutor();
 
-        String nombre = InputUtils.leerString(sc, "\nNombre del autor: ");
+        String nombre = InputUtils.leerString(sc, "\n" + ColoresUtils.NEGRITA + "Nombre " + ColoresUtils.RESET + "del autor: ");
         String nacionalidad = InputUtils.leerString(sc, "Nacionalidad: ");
         LocalDate fechaNacimiento = InputUtils.leerFecha(sc, "Fecha de nacimiento: ");
 
@@ -32,13 +32,13 @@ public class ServiceAutores {
 
             do {
 
-                fechaFallecimiento = InputUtils.leerFecha(sc, "Fecha de fallecimiento: ");
+                fechaFallecimiento = InputUtils.leerFecha(sc, "Fecha de " + ColoresUtils.ROJO + "fallecimiento: " + ColoresUtils.RESET);
 
                 if (fechaFallecimiento.isBefore(fechaNacimiento)) {
 
                     System.out.println(
                         ColoresUtils.ROJO +
-                        "La fecha de fallecimiento no puede ser anterior a la de nacimiento." +
+                        "La fecha de fallecimiento " + ColoresUtils.NEGRITA + "no " + ColoresUtils.RESET + ColoresUtils.ROJO + "puede ser anterior a la de nacimiento." +
                         ColoresUtils.RESET
                     );
                 }
@@ -174,12 +174,8 @@ public class ServiceAutores {
         for (Autor a : autores) {
 
             if (a.getIdAutor() == id) {
-
-                System.out.println(
-                    ColoresUtils.NEGRITA +
-                    "\n---- DETALLES DEL AUTOR ----" +
-                    ColoresUtils.RESET
-                );
+                InputUtils.limpiarPantalla();
+                TitlesUtils.tituloDetallesDelAutor();
 
                 System.out.println("ID: " + a.getIdAutor());
                 System.out.println("Nombre: " + a.getNombre());
@@ -229,11 +225,11 @@ public class ServiceAutores {
 
         TitlesUtils.tituloEstadisticas();
 
-        System.out.println("\n1. Autor/es con más libros");
-        System.out.println("2. Autor/es con el libro más largo");
-        System.out.println("3. Autor/es más viejos");
-        System.out.println("4. Total autores");
-        System.out.println("5. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + "Salir" + ColoresUtils.RESET);
+        System.out.println("\n1. " + ColoresUtils.VERDE + "Autor/es con más libros" + ColoresUtils.RESET);
+        System.out.println("2. " + ColoresUtils.NARANJA + "Autor/es con el libro más largo" + ColoresUtils.RESET);
+        System.out.println("3. " + ColoresUtils.MORADO + "Autor/es más viejos" + ColoresUtils.RESET);
+        System.out.println("4. " + ColoresUtils.AZUL + "Total autores" + ColoresUtils.RESET);
+        System.out.println("5. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
 
         int opcion = InputUtils.leerNumeroMenu(sc, "\nSelecciona una opción: ", 5);
 
@@ -246,11 +242,11 @@ public class ServiceAutores {
                 List<Autor> autoresMax = UtilidadesAutores.autoresConMasLibros();
 
                 if (autoresMax.isEmpty()) {
-                    System.out.println("No hay autores.");
+                    System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "No hay autores." + ColoresUtils.RESET);
                     break;
                 }
 
-                System.out.println("Autor/es con más libros:");
+                System.out.println(ColoresUtils.VERDE + "Autor/es con más libros:" + ColoresUtils.RESET);
 
                 for (Autor a : autoresMax) {
                     System.out.println("- " + a.getNombre());
@@ -262,11 +258,11 @@ public class ServiceAutores {
                 List<Autor> autoresMaxLibro = UtilidadesAutores.autoresConLibroMasLargo();
 
                 if (autoresMaxLibro.isEmpty()) {
-                    System.out.println("No hay datos.");
+                    System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "No hay datos." + ColoresUtils.RESET);
                     break;
                 }
 
-                System.out.println("Autor/es con el libro más largo:");
+                System.out.println(ColoresUtils.NARANJA + "Autor/es con el libro más largo:" + ColoresUtils.RESET);
 
                 for (Autor a : autoresMaxLibro) {
                     System.out.println("- " + a.getNombre());
@@ -278,11 +274,11 @@ public class ServiceAutores {
                 List<Autor> viejos = UtilidadesAutores.autoresMasViejos();
 
                 if (viejos.isEmpty()) {
-                    System.out.println("No hay autores.");
+                    System.out.println(ColoresUtils.ROJO + ColoresUtils.NEGRITA + "No hay autores." + ColoresUtils.RESET);
                     break;
                 }
 
-                System.out.println("Autor/es más viejos:");
+                System.out.println(ColoresUtils.MORADO + "Autor/es más viejos:" + ColoresUtils.RESET);
 
                 for (Autor a : viejos) {
                     System.out.println("- " + a.getNombre() + " (" + a.getEdad() + " años)");
@@ -293,7 +289,7 @@ public class ServiceAutores {
 
                 int total = UtilidadesAutores.totalAutores();
 
-                System.out.println("Total de autores: " + total);
+                System.out.println(ColoresUtils.AZUL + "Total de autores: " + ColoresUtils.RESET + total);
             }
 
             default -> {}
