@@ -155,25 +155,23 @@ public class ServiceLibros {
         System.out.println("4. " + ColoresUtils.ROJO + ColoresUtils.NEGRITA + ColoresUtils.SUBRAYADO + "Salir" + ColoresUtils.RESET);
 
         int op = InputUtils.leerNumeroMenu(sc, "Opción: ", 4);
-
+        InputUtils.limpiarPantalla();
+        
         switch (op) {
 
             case 1 -> {
-                //Poner limpiar pantlla aquí para que no se mezcle con el menú
                 System.out.println(ColoresUtils.CYAN_CLARO + "Media" + ColoresUtils.RESET + " páginas: " + UtilidadesLibros.mediaPaginas());
                 System.out.println(ColoresUtils.MORADO_CLARO + "Max" + ColoresUtils.RESET + " páginas: " + UtilidadesLibros.maxPaginas());
                 System.out.println(ColoresUtils.VERDE_BOSQUE + "Min" + ColoresUtils.RESET + " páginas: " + UtilidadesLibros.minPaginas());
             }
 
             case 2 -> {
-                //Poner limpiar pantlla aquí para que no se mezcle con el menú
                 System.out.println(ColoresUtils.CYAN_CLARO + "Media" + ColoresUtils.RESET + " existencias: " + UtilidadesLibros.mediaExistencias());
                 System.out.println(ColoresUtils.MORADO_CLARO + "Max" + ColoresUtils.RESET + " existencias: " + UtilidadesLibros.maxExistencias());
                 System.out.println(ColoresUtils.VERDE_BOSQUE + "Min" + ColoresUtils.RESET + " existencias: " + UtilidadesLibros.minExistencias());
             }
 
             case 3 -> {
-                //Poner limpiar pantlla aquí para que no se mezcle con el menú
                 System.out.println("Disponibilidad %: " + UtilidadesLibros.porcentajeDisponibles());
                 System.out.println("Total libros: " + UtilidadesLibros.totalLibros());
 

@@ -130,13 +130,23 @@ public class TitlesUtils {
             System.out.println("");      
     }
 
-        public static void tituloDetalles() {
-            System.out.println(ColoresUtils.NARANJA + " _____       _        _ _             " + ColoresUtils.RESET);
-            System.out.println(ColoresUtils.NARANJA + "|  __ \\     | |      | | |           " + ColoresUtils.RESET);
-            System.out.println(ColoresUtils.NARANJA + "| |  | | ___| |_ __ _| | | ___  ___  " + ColoresUtils.RESET);
-            System.out.println(ColoresUtils.NARANJA + "| |  | |/ _ \\ __/ _` | | |/ _ \\/ __| " + ColoresUtils.RESET);
-            System.out.println(ColoresUtils.NARANJA + "| |__| |  __/ || (_| | | |  __/\\__ \\ " + ColoresUtils.RESET);
-            System.out.println(ColoresUtils.NARANJA + "|_____/ \\___|\\__\\__,_|_|_|\\___||___/ " + ColoresUtils.RESET);
-            System.out.println("");      
+    public static void tituloDetalles() {
+        System.out.println(ColoresUtils.NARANJA + " _____       _        _ _             " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.NARANJA + "|  __ \\     | |      | | |           " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.NARANJA + "| |  | | ___| |_ __ _| | | ___  ___  " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.NARANJA + "| |  | |/ _ \\ __/ _` | | |/ _ \\/ __| " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.NARANJA + "| |__| |  __/ || (_| | | |  __/\\__ \\ " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.NARANJA + "|_____/ \\___|\\__\\__,_|_|_|\\___||___/ " + ColoresUtils.RESET);
+        System.out.println("");      
+    }
+
+    public static void tituloEliminarUsuario() {
+        System.out.println(ColoresUtils.ROJO + " ______ _ _           _                    _    _                      _       " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.ROJO + "|  ____| (_)         (_)                  | |  | |                    (_)      " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.ROJO + "| |__  | |_ _ __ ___  _ _ __   __ _ _ __  | |  | |___ _   _  __ _ _ __ _  ___  " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.ROJO + "|  __| | | | '_ ` _ \\| | '_ \\ / _` | '__| | |  | / __| | | |/ _` | '__| |/ _ \\ " + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.ROJO + "| |____| | | | | | | | | | | | (_| | |    | |__| \\__ \\ |_| | (_| | |  | | (_) |" + ColoresUtils.RESET);
+        System.out.println(ColoresUtils.ROJO + "|______|_|_|_| |_| |_|_|_| |_|\\__,_|_|     \\____/|___/\\__,_|\\__,_|_|  |_|\\___/ " + ColoresUtils.RESET);                                                                                
+        System.out.println("");
     }
 }

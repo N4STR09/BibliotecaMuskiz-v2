@@ -10,21 +10,21 @@ public class UtilidadesLibros {
     //paginas
     public static double mediaPaginas() {
 
-        String sql = "SELECT AVG(numeroPaginas) FROM libros";
+        String sql = "SELECT AVG(numero_paginas) FROM libros";
 
         return ejecutarDouble(sql);
     }
 
     public static int maxPaginas() {
 
-        String sql = "SELECT MAX(numeroPaginas) FROM libros";
+        String sql = "SELECT MAX(numero_paginas) FROM libros";
 
         return ejecutarInt(sql);
     }
 
     public static int minPaginas() {
 
-        String sql = "SELECT MIN(numeroPaginas) FROM libros";
+        String sql = "SELECT MIN(numero_paginas) FROM libros";
 
         return ejecutarInt(sql);
     }

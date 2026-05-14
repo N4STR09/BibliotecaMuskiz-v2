@@ -15,6 +15,8 @@ public class ServiceUsuarios {
     //añadir usuario
     public static void añadirUsuario(Scanner sc) {
 
+        TitlesUtils.tituloNuevoUsuario();
+
         String nombre = InputUtils.leerString(sc, "Nombre: ");
         String dni = InputUtils.leerPassword(sc, "DNI: ");
         int nss = InputUtils.leerInt(sc, "Número Seguridad Social: ");
@@ -64,7 +66,7 @@ public class ServiceUsuarios {
             return;
         }
 
-        TitlesUtils.tituloNuevoUsuario();
+        TitlesUtils.tituloEliminarUsuario();
 
         for (Usuario u : usuarios) {
             System.out.println(u.getIdUsuario() + " - " + u.getNombre() + " - " + u.getDni());
@@ -101,9 +103,9 @@ public class ServiceUsuarios {
     //mostrar usuario
     public static void mostrarUsuarios(Scanner sc) {
 
-        //TitlesUtils.tituloUsuarios();
-
         var usuarios = UsuarioRepository.cargarUsuarios();
+        
+        TitlesUtils.tituloUsuarios();
 
         if (usuarios.isEmpty()) {
             System.out.println("No hay usuarios.");

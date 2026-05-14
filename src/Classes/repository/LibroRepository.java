@@ -12,7 +12,7 @@ public class LibroRepository {
         String sql = """
             INSERT INTO libros (
                 existencias,
-                numeroPaginas,
+                numero_paginas,
                 titulo,
                 id_autor,
                 genero,
@@ -77,7 +77,7 @@ public class LibroRepository {
                     rs.getInt("existencias"),
                     rs.getInt("numero_paginas"),
                     rs.getString("titulo"),
-                    rs.getInt("id_autor"), // 🔥 AQUÍ ESTÁ EL FIX
+                    rs.getInt("id_autor"),
                     rs.getString("genero"),
                     rs.getInt("anio_publicacion"),
                     rs.getString("editorial"),

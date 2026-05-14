@@ -35,7 +35,7 @@ CREATE TABLE `autores` (
   `premios` text,
   `obras_destacadas` text,
   PRIMARY KEY (`id_autor`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `autores` (
 
 LOCK TABLES `autores` WRITE;
 /*!40000 ALTER TABLE `autores` DISABLE KEYS */;
-INSERT INTO `autores` VALUES (1,'Miguel de Cervantes','Española','1547-09-29',1,'1616-04-22','Escritor del Siglo de Oro','cervantes.jpg','Novela','Ninguno','Don Quijote'),(2,'Gabriel García Márquez','Colombiana','1927-03-06',1,'2014-04-17','Autor del realismo mágico','gabo.jpg','Novela','Nobel','Cien años de soledad'),(3,'J.K. Rowling','Británica','1965-07-31',0,NULL,'Autora de Harry Potter','rowling.jpg','Fantasía','Ninguno','Harry Potter'),(4,'Isabel Allende','Chilena','1942-08-02',0,NULL,'Autora de La casa de los espíritus','allende.jpg','Novela','Ninguno','La casa de los espíritus'),(5,'Mario Vargas Llosa','Peruana','1936-03-28',0,NULL,'Escritor y político','vargas.jpg','Novela','Nobel','La ciudad y los perros');
+INSERT INTO `autores` VALUES (1,'Miguel de Cervantes','Española','1547-09-29',1,'1616-04-22','Escritor del Siglo de Oro','cervantes.jpg','Novela','Ninguno','Don Quijote'),(2,'Gabriel García Márquez','Colombiana','1927-03-06',1,'2014-04-17','Autor del realismo mágico','gabo.jpg','Novela','Nobel','Cien años de soledad'),(3,'J.K. Rowling','Británica','1965-07-31',0,NULL,'Autora de Harry Potter','rowling.jpg','Fantasía','Ninguno','Harry Potter'),(4,'Isabel Allende','Chilena','1942-08-02',0,NULL,'Autora de La casa de los espíritus','allende.jpg','Novela','Ninguno','La casa de los espíritus'),(5,'Mario Vargas Llosa','Peruana','1936-03-28',0,NULL,'Escritor y político','vargas.jpg','Novela','Nobel','La ciudad y los perros'),(6,'sjd','saod','2000-01-01',0,NULL,'asijd','aposdj','psadj','spadj','asdj');
 /*!40000 ALTER TABLE `autores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,12 +97,11 @@ CREATE TABLE `libros` (
   `descripcion` text,
   `categoria` varchar(100) DEFAULT NULL,
   `disponibilidad` tinyint(1) DEFAULT '1',
-  `numeroPaginas` int(11) NOT NULL DEFAULT '0',
   `existencias` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_libro`),
   KEY `fk_libro_autor` (`id_autor`),
   CONSTRAINT `fk_libro_autor` FOREIGN KEY (`id_autor`) REFERENCES `autores` (`id_autor`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +110,7 @@ CREATE TABLE `libros` (
 
 LOCK TABLES `libros` WRITE;
 /*!40000 ALTER TABLE `libros` DISABLE KEYS */;
-INSERT INTO `libros` VALUES (1,863,'Don Quijote de la Mancha',1,'Novela',1605,'Francisco de Robles',NULL,'Español','Físico',NULL,NULL,'Literatura',1,863,2),(2,350,'Novelas ejemplares',1,'Novela',1613,'Juan de la Cuesta',NULL,'Español','Físico',NULL,NULL,'Literatura',1,350,1),(3,471,'La Galatea',1,'Novela',1585,'Blas de Robles',NULL,'Español','Físico',NULL,NULL,'Literatura',1,471,4),(4,417,'Cien años de soledad',2,'Novela',1967,'Sudamericana',NULL,'Español','Físico',NULL,NULL,'Literatura',1,417,3),(5,120,'Crónica de una muerte anunciada',2,'Novela',1981,'Oveja Negra',NULL,'Español','Físico',NULL,NULL,'Literatura',1,120,2),(6,368,'El amor en los tiempos del cólera',2,'Novela',1985,'Oveja Negra',NULL,'Español','Físico',NULL,NULL,'Literatura',1,368,1),(7,192,'El coronel no tiene quien le escriba',2,'Novela',1961,'Sudamericana',NULL,'Español','Físico',NULL,NULL,'Literatura',1,192,2),(8,450,'Harry Potter y el Cáliz de Fuego',3,'Fantasía',2002,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,450,3),(9,223,'Harry Potter y la piedra filosofal',3,'Fantasía',1997,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,223,5),(10,251,'Harry Potter y la cámara secreta',3,'Fantasía',1998,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,251,4),(11,317,'Harry Potter y el prisionero de Azkaban',3,'Fantasía',1999,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,317,3),(12,636,'Harry Potter y la Orden del Fénix',3,'Fantasía',2003,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,636,2),(13,432,'La casa de los espíritus',4,'Novela',1982,'Plaza & Janés',NULL,'Español','Físico',NULL,NULL,'Literatura',1,432,2),(14,368,'Eva Luna',4,'Novela',1987,'Plaza & Janés',NULL,'Español','Físico',NULL,NULL,'Literatura',1,368,1),(15,416,'Paula',4,'Memorias',1994,'Plaza & Janés',NULL,'Español','Físico',NULL,NULL,'Literatura',1,416,2),(16,384,'Hija de la fortuna',4,'Novela',1999,'Plaza & Janés',NULL,'Español','Físico',NULL,NULL,'Literatura',1,384,3),(17,432,'La ciudad y los perros',5,'Novela',1963,'Seix Barral',NULL,'Español','Físico',NULL,NULL,'Literatura',1,432,2),(18,376,'Conversación en La Catedral',5,'Novela',1969,'Seix Barral',NULL,'Español','Físico',NULL,NULL,'Literatura',1,376,1),(19,304,'Pantaleón y las visitadoras',5,'Novela',1973,'Seix Barral',NULL,'Español','Físico',NULL,NULL,'Literatura',1,304,2),(20,288,'La fiesta del chivo',5,'Novela',2000,'Alfaguara',NULL,'Español','Físico',NULL,NULL,'Literatura',1,288,1);
+INSERT INTO `libros` VALUES (1,863,'Don Quijote de la Mancha',1,'Novela',1605,'Francisco de Robles',NULL,'Español','Físico',NULL,NULL,'Literatura',1,2),(2,350,'Novelas ejemplares',1,'Novela',1613,'Juan de la Cuesta',NULL,'Español','Físico',NULL,NULL,'Literatura',1,1),(3,471,'La Galatea',1,'Novela',1585,'Blas de Robles',NULL,'Español','Físico',NULL,NULL,'Literatura',1,4),(4,417,'Cien años de soledad',2,'Novela',1967,'Sudamericana',NULL,'Español','Físico',NULL,NULL,'Literatura',1,3),(5,120,'Crónica de una muerte anunciada',2,'Novela',1981,'Oveja Negra',NULL,'Español','Físico',NULL,NULL,'Literatura',1,2),(6,368,'El amor en los tiempos del cólera',2,'Novela',1985,'Oveja Negra',NULL,'Español','Físico',NULL,NULL,'Literatura',1,1),(7,192,'El coronel no tiene quien le escriba',2,'Novela',1961,'Sudamericana',NULL,'Español','Físico',NULL,NULL,'Literatura',1,2),(8,450,'Harry Potter y el Cáliz de Fuego',3,'Fantasía',2002,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,3),(9,223,'Harry Potter y la piedra filosofal',3,'Fantasía',1997,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,5),(10,251,'Harry Potter y la cámara secreta',3,'Fantasía',1998,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,4),(11,317,'Harry Potter y el prisionero de Azkaban',3,'Fantasía',1999,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,3),(12,636,'Harry Potter y la Orden del Fénix',3,'Fantasía',2003,'Bloomsbury',NULL,'Español','Físico',NULL,NULL,'Literatura',1,2),(13,432,'La casa de los espíritus',4,'Novela',1982,'Plaza & Janés',NULL,'Español','Físico',NULL,NULL,'Literatura',1,2),(14,368,'Eva Luna',4,'Novela',1987,'Plaza & Janés',NULL,'Español','Físico',NULL,NULL,'Literatura',1,1),(15,416,'Paula',4,'Memorias',1994,'Plaza & Janés',NULL,'Español','Físico',NULL,NULL,'Literatura',1,2),(16,384,'Hija de la fortuna',4,'Novela',1999,'Plaza & Janés',NULL,'Español','Físico',NULL,NULL,'Literatura',1,3),(17,432,'La ciudad y los perros',5,'Novela',1963,'Seix Barral',NULL,'Español','Físico',NULL,NULL,'Literatura',1,2),(18,376,'Conversación en La Catedral',5,'Novela',1969,'Seix Barral',NULL,'Español','Físico',NULL,NULL,'Literatura',1,1),(19,304,'Pantaleón y las visitadoras',5,'Novela',1973,'Seix Barral',NULL,'Español','Físico',NULL,NULL,'Literatura',1,2),(20,288,'La fiesta del chivo',5,'Novela',2000,'Alfaguara',NULL,'Español','Físico',NULL,NULL,'Literatura',1,1),(21,333,'aipdj',6,'aspdok',2000,'asjd','sapkd','aspokd','pasod','psaodk','aspodk','pasokd',1,1);
 /*!40000 ALTER TABLE `libros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +158,7 @@ CREATE TABLE `prestamos` (
   KEY `fk_prestamos_usuarios` (`id_usuario`),
   CONSTRAINT `fk_prestamos_ejemplares` FOREIGN KEY (`cod_ejemplar`) REFERENCES `ejemplares` (`cod_ejemplar`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_prestamos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +167,7 @@ CREATE TABLE `prestamos` (
 
 LOCK TABLES `prestamos` WRITE;
 /*!40000 ALTER TABLE `prestamos` DISABLE KEYS */;
-INSERT INTO `prestamos` VALUES (1,'2026-05-08','2026-05-08',21,3),(2,'2026-05-08','2026-05-08',21,3);
+INSERT INTO `prestamos` VALUES (1,'2026-05-08','2026-05-08',21,3),(2,'2026-05-08','2026-05-08',21,3),(3,'2026-05-11','2026-05-11',66,3);
 /*!40000 ALTER TABLE `prestamos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,4 +216,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-08 23:40:31
+-- Dump completed on 2026-05-14  8:38:48
