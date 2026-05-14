@@ -15,4 +15,20 @@ public class ConexionBD {
     public static Connection conectar() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
+
+    public static boolean cerrarConexion(Connection con) {
+
+        try {
+
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

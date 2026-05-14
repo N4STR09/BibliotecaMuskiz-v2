@@ -1,7 +1,6 @@
 package src.Classes.menu;
 
 import java.util.Scanner;
-
 import src.Classes.model.Usuario;
 import src.Classes.utils.*;
 import src.Classes.service.*;
