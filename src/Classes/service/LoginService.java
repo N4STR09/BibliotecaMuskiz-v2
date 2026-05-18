@@ -8,7 +8,8 @@ import src.Classes.utils.TitlesUtils;
 public class LoginService {
 
     public static Usuario login(Scanner sc) {
-
+        
+        TitlesUtils.tituloBiblioteca();
         TitlesUtils.tituloLogin();
 
         System.out.print("DNI: ");

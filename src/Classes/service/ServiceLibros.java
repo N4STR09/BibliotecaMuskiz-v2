@@ -145,7 +145,7 @@ public class ServiceLibros {
         System.out.println("Año: " + libro.getAnioPublicacion());
     }
 
-        public static void estadisticasLibros(Scanner sc) {
+    public static void estadisticasLibros(Scanner sc) {
 
         TitlesUtils.tituloEstadisticas();
 

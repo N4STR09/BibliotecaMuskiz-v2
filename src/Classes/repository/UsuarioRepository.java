@@ -78,7 +78,7 @@ public class UsuarioRepository {
                     codPenalizacion = tmp;
                 }
 
-                boolean admin = rs.getBoolean("admin"); // 👈 AQUÍ
+                boolean admin = rs.getBoolean("admin");
 
                 Usuario u = new Usuario(
                     rs.getInt("id_usuario"),

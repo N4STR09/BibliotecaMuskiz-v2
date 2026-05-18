@@ -279,44 +279,44 @@ public class ServicePrestamos {
 
     public static boolean listarPrestamosActivos(Scanner sc, Usuario usuario) {
 
-    String sql = """
-        SELECT p.cod_prestamo, l.titulo, p.fecha_prestamo
-        FROM prestamos p
-        JOIN ejemplares e ON p.cod_ejemplar = e.cod_ejemplar
-        JOIN libros l ON e.id_libro = l.id_libro
-        WHERE p.id_usuario = ?
-        AND p.fecha_devolucion IS NULL
-    """;
+        String sql = """
+            SELECT p.cod_prestamo, l.titulo, p.fecha_prestamo
+            FROM prestamos p
+            JOIN ejemplares e ON p.cod_ejemplar = e.cod_ejemplar
+            JOIN libros l ON e.id_libro = l.id_libro
+            WHERE p.id_usuario = ?
+            AND p.fecha_devolucion IS NULL
+        """;
 
-    try (Connection con = ConexionBD.conectar();
-        PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = ConexionBD.conectar();
+            PreparedStatement ps = con.prepareStatement(sql)) {
 
-        ps.setInt(1, usuario.getIdUsuario());
+            ps.setInt(1, usuario.getIdUsuario());
 
-        ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-        System.out.println("\nPRÉSTAMOS ACTIVOS:\n");
+            System.out.println("\nPRÉSTAMOS ACTIVOS:\n");
 
-        boolean hay = false;
+            boolean hay = false;
 
-        while (rs.next()) {
-            hay = true;
-            System.out.println(
-                rs.getInt("cod_prestamo") + " - " +
-                rs.getString("titulo") + " - " +
-                rs.getDate("fecha_prestamo")
-            );
+            while (rs.next()) {
+                hay = true;
+                System.out.println(
+                    rs.getInt("cod_prestamo") + " - " +
+                    rs.getString("titulo") + " - " +
+                    rs.getDate("fecha_prestamo")
+                );
+            }
+
+            if (!hay) {
+                System.out.println("No tienes préstamos activos.");
+            }
+
+            return hay;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
-
-        if (!hay) {
-            System.out.println("No tienes préstamos activos.");
-        }
-
-        return hay;
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
     }
-}
 }
