@@ -115,15 +115,6 @@ Herramientas auxiliares:
 
 ---
 
-# ▶️ Ejecución del proyecto
-
-1. Configurar base de datos MySQL
-2. Importar script SQL del proyecto
-3. Configurar credenciales en `ConexionBD`
-4. Ejecutar `Main.java`
-
----
-
 # 📌 Reglas del sistema
 
 - Máximo 3 préstamos activos por usuario
